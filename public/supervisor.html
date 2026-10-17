@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>教学督导 - 听课对象查询</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="header" style="background:linear-gradient(135deg,#52c41a 0%,#389e0d 100%);">
+    <div class="logo">
+      <span class="logo-icon">🔍</span>
+      <span>爱教学 · 教学督导听课查询</span>
+    </div>
+    <div class="user-info">
+      <span class="role-tag" style="background:rgba(255,255,255,0.2);">教学督导</span>
+      <span>教学督导</span>
+      <button class="logout-btn" id="logoutBtn">退出</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1 class="page-title">按教师筛选课程</h1>
+    <p class="page-desc">按教师筛选所授课程，确定听课对象，评估课堂教学质量</p>
+
+    <div class="stats-row" id="statsRow"></div>
+
+    <div class="filter-bar">
+      <div class="filter-row" id="filterRow"></div>
+    </div>
+
+    <div class="table-card">
+      <div class="table-toolbar">
+        <span class="toolbar-title">👀 待听课课程列表</span>
+        <span class="result-count" id="resultCount">共 0 门课程</span>
+      </div>
+      <table class="course-table">
+        <thead>
+          <tr id="tableHead"></tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+
+    <div id="pagination" class="pagination"></div>
+
+    <div class="footer-info">教学督导视角 · 按教师筛选课程，确定听课对象</div>
+  </div>
+
+  <div class="modal-mask" id="detailModal">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title">课程详情</span>
+        <button class="modal-close" id="modalClose">×</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script src="/js/common.js"></script>
+  <script src="/js/supervisor.js"></script>
+</body>
+</html>

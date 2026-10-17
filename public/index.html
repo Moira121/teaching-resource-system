@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>爱教学 - 角色选择</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="login-page">
+    <div class="login-card">
+      <div class="login-title">爱教学</div>
+      <div class="login-subtitle">教学质量全链路数字化管理平台</div>
+
+      <div class="role-list" id="roleList">
+        <div class="role-option" data-role="director">
+          <div class="role-icon">📋</div>
+          <div class="role-text">
+            <div class="role-name">教研室主任</div>
+            <div class="role-desc">统筹管理全院课程，查看全部课程开课列表</div>
+          </div>
+        </div>
+        <div class="role-option" data-role="teacher">
+          <div class="role-icon">👨‍🏫</div>
+          <div class="role-text">
+            <div class="role-name">教师</div>
+            <div class="role-desc">查看自己所授课程的基本信息，核对开课信息</div>
+          </div>
+        </div>
+        <div class="role-option" data-role="supervisor">
+          <div class="role-icon">🔍</div>
+          <div class="role-text">
+            <div class="role-name">教学督导</div>
+            <div class="role-desc">按教师筛选课程，确定听课对象</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="teacher-select-area" id="teacherSelectArea">
+        <label>请选择您的身份：</label>
+        <select id="teacherSelect">
+          <option value="">加载中...</option>
+        </select>
+      </div>
+
+      <button class="login-btn" id="loginBtn" disabled>进入系统</button>
+    </div>
+  </div>
+
+  <script src="/js/common.js"></script>
+  <script src="/js/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>教研室主任 - 课程统筹管理</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="header" style="background:linear-gradient(135deg,#1890ff 0%,#0050b3 100%);">
+    <div class="logo">
+      <span class="logo-icon">📋</span>
+      <span>爱教学 · 课程统筹管理</span>
+    </div>
+    <div class="user-info">
+      <span class="role-tag" style="background:rgba(255,255,255,0.2);">教研室主任</span>
+      <span>教研室主任</span>
+      <button class="logout-btn" id="logoutBtn">退出</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1 class="page-title">全院课程开课总览</h1>
+    <p class="page-desc">统筹管理全院课程开设、教师排课与教学安排</p>
+
+    <div class="stats-row" id="statsRow"></div>
+
+    <div class="filter-bar">
+      <div class="filter-row" id="filterRow"></div>
+    </div>
+
+    <div class="table-card">
+      <div class="table-toolbar">
+        <span class="toolbar-title">📊 全院课程列表</span>
+        <span class="result-count" id="resultCount">共 0 门课程</span>
+      </div>
+      <table class="course-table">
+        <thead>
+          <tr id="tableHead"></tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+
+    <div id="pagination" class="pagination"></div>
+
+    <div class="footer-info">教研室主任视角 · 统筹管理全院课程开设与排课安排</div>
+  </div>
+
+  <div class="modal-mask" id="detailModal">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title">课程详情</span>
+        <button class="modal-close" id="modalClose">×</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script src="/js/common.js"></script>
+  <script src="/js/director.js"></script>
+</body>
+</html>
