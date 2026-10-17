@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python 入门微课视频 — Python程序设计</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;line-height:1.8;color:#2c3e50;max-width:860px;margin:0 auto;padding:28px 20px;background:#f5f7fa}
+.page{background:#fff;border-radius:10px;box-shadow:0 2px 12px rgba(0,0,0,.08);overflow:hidden}
+.hd{background:linear-gradient(135deg,#1a237e,#3949ab);color:#fff;padding:26px 32px}
+.hd h1{font-size:22px;margin-bottom:8px}
+.hd .meta{font-size:13px;opacity:.85}
+.badge{display:inline-block;padding:2px 10px;border-radius:4px;font-size:12px;background:rgba(255,255,255,.2);margin-left:8px;vertical-align:middle}
+.bd{padding:26px 32px}
+h2{font-size:17px;color:#1a237e;margin:26px 0 10px;padding-left:10px;border-left:4px solid #3949ab}
+h2:first-child{margin-top:0}
+h3{font-size:15px;color:#283593;margin:16px 0 6px}
+p,li{font-size:14px;color:#37474f}
+ul,ol{padding-left:22px}
+li{margin:4px 0}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:13px}
+th{background:#e8eaf6;color:#1a237e;padding:8px 10px;text-align:left;border:1px solid #c5cae9}
+td{padding:7px 10px;border:1px solid #e0e0e0}
+tr:nth-child(even) td{background:#fafbfc}
+.note{background:#fff8e1;border:1px solid #ffe082;border-radius:6px;padding:10px 14px;font-size:13px;color:#6d4c00;margin:12px 0}
+.code{background:#263238;color:#eeffff;border-radius:6px;padding:12px 16px;font-family:Consolas,Menlo,monospace;font-size:13px;overflow-x:auto;margin:10px 0;white-space:pre}
+.formula{background:#e3f2fd;border-radius:6px;padding:12px 16px;text-align:center;font-size:16px;color:#0d47a1;margin:10px 0;font-family:"Cambria Math",Georgia,serif}
+.tag{display:inline-block;font-size:11px;padding:1px 8px;border-radius:10px;background:#e3f2fd;color:#1565c0;margin:0 4px}
+.case{border:1px solid #e0e0e0;border-radius:8px;padding:14px 18px;margin:12px 0;background:#fafbfc}
+.case h3{margin-top:0}
+.ft{padding:16px 32px;background:#fafbfc;border-top:1px solid #eceff1;font-size:12px;color:#90a4ae;text-align:center}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="hd">
+    <h1>Python 入门微课视频<span class="badge">视频</span></h1>
+    <div class="meta">课程：Python程序设计（CS202） &nbsp;|&nbsp; 2025-2026-1 &nbsp;|&nbsp; 资源编号：R010</div>
+  </div>
+  <div class="bd">
+<h2>视频信息</h2>
+<table>
+<tr><th style="width:110px">时长</th><td>32 分 15 秒（含 3 段随堂动手环节）</td><th style="width:110px">难度</th><td>★☆☆☆☆（零基础入门，无需任何编程经验）</td></tr>
+<tr><th>配套章节</th><td colspan="3">第 1 章 Python 概述 · 环境搭建与第一个程序</td></tr>
+</table>
+<h2>内容时间轴</h2>
+<table>
+<tr><th style="width:110px">时间点</th><th>内容</th></tr>
+<tr><td>▶ 00:00</td><td>课程介绍：Python 能做什么？—— Web 后端（豆瓣/Instagram）、数据分析（Pandas）、人工智能（PyTorch）、办公自动化（Excel 批处理）</td></tr>
+<tr><td>▶ 03:20</td><td>为什么选择 Python：语法简洁、生态丰富、社区活跃；TIOBE 排行榜常年第一</td></tr>
+<tr><td>▶ 05:40</td><td>【动手 1】官网下载 Python 3.12 安装包，Windows 安装时务必勾选 "Add python.exe to PATH"，演示忘记勾选后的补救方法</td></tr>
+<tr><td>▶ 09:10</td><td>验证安装：Win+R 打开 cmd，执行 python --version 显示版本号；进入交互式解释器（REPL），输入 1+1 实时求值</td></tr>
+<tr><td>▶ 12:30</td><td>【动手 2】安装 VS Code：安装 Python 官方扩展、选择解释器、新建 hello.py 文件、运行按钮的三种方式</td></tr>
+<tr><td>▶ 17:00</td><td>编写并运行 Hello World：print 函数的 sep/end 参数、单行注释 # 与多行注释三引号</td></tr>
+<tr><td>▶ 21:20</td><td>变量与基本数据类型：int / float / str / bool；动态类型 vs 静态类型对比演示（type() 函数查看类型）</td></tr>
+<tr><td>▶ 25:00</td><td>f-string 格式化输出：姓名、年龄、成绩拼接成一句话；input() 接收用户输入并完成"年龄+1"小程序</td></tr>
+<tr><td>▶ 28:30</td><td>【动手 3】常见报错实战：NameError（变量未定义）、SyntaxError（中文括号）、TypeError（字符串与数字相加）的识别与排查</td></tr>
+<tr><td>▶ 31:00</td><td>本课小结与下节预告：if 分支与 while 循环</td></tr>
+</table>
+<h2>核心知识点</h2>
+<ul>
+<li>Python 是解释型、动态类型语言：无需编译、无需声明变量类型，赋值即创建变量；</li>
+<li>缩进即语法：Python 用 4 个空格缩进表示代码块，Tab 与空格混用会报 IndentationError；</li>
+<li>REPL（交互式解释器）是验证小片段代码的最高效工具，输入 exit() 退出；</li>
+<li>print() 默认以换行结尾，可用 end="" 取消；多值输出默认空格分隔，可用 sep 定制；</li>
+<li>input() 永远返回字符串，做数值运算前必须用 int() 或 float() 转换；</li>
+<li>命名规范：变量名用蛇形命名法（snake_case），如 student_name；常量全大写，如 MAX_SIZE。</li>
+</ul>
+<h2>演示代码</h2><div class="code"># ===== 第 1 个程序：Hello World =====
+print("Hello, 爱教学！")
+
+# ===== 变量与数据类型 =====
+name = "小明"          # str：字符串，双引号单引号均可
+age = 20                # int：整数
+score = 95.5            # float：浮点数
+passed = True           # bool：布尔值，注意首字母大写
+
+print(type(name))       # &lt;class 'str'&gt;
+
+# ===== f-string 格式化（Python 3.6+ 推荐写法）=====
+print(f"{name}今年{age}岁，Python成绩：{score}分")
+
+# ===== input 与用户交互 =====
+birth_year = input("请输入你的出生年份：")   # input 返回 str
+age_calc = 2025 - int(birth_year)             # 必须先转 int
+print(f"你今年大约 {age_calc} 岁")
+
+# ===== print 高级用法 =====
+print("语文", "数学", "英语", sep=" | ")     # 语文 | 数学 | 英语
+print("不换行", end="")
+print("接着上一行")</div>
+<h2>观看建议</h2>
+<ul>
+<li>三段【动手】环节请务必暂停视频同步操作，编程是"做"会的，不是"看"会的；</li>
+<li>12:30 的 VS Code 配置对后续全部实验课通用，完成后截图保存配置界面备查；</li>
+<li>遇到报错先读最后一行（错误类型+原因），再回看提示的行号；把错误信息复制到搜索引擎是最快的排查方式；</li>
+<li>配套练习：完成课程平台"第 1 章闯关练习"共 10 题（在线自动判题），截止本周日 23:59。</li>
+</ul></div>
+  <div class="ft">爱教学平台 · 课程配套教学资源 · 仅供教学演示使用</div>
+</div>
+</body>
+</html>

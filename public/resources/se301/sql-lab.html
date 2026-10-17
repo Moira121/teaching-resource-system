@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SQL 上机实验指导书 — 数据库系统原理</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;line-height:1.8;color:#2c3e50;max-width:860px;margin:0 auto;padding:28px 20px;background:#f5f7fa}
+.page{background:#fff;border-radius:10px;box-shadow:0 2px 12px rgba(0,0,0,.08);overflow:hidden}
+.hd{background:linear-gradient(135deg,#1a237e,#3949ab);color:#fff;padding:26px 32px}
+.hd h1{font-size:22px;margin-bottom:8px}
+.hd .meta{font-size:13px;opacity:.85}
+.badge{display:inline-block;padding:2px 10px;border-radius:4px;font-size:12px;background:rgba(255,255,255,.2);margin-left:8px;vertical-align:middle}
+.bd{padding:26px 32px}
+h2{font-size:17px;color:#1a237e;margin:26px 0 10px;padding-left:10px;border-left:4px solid #3949ab}
+h2:first-child{margin-top:0}
+h3{font-size:15px;color:#283593;margin:16px 0 6px}
+p,li{font-size:14px;color:#37474f}
+ul,ol{padding-left:22px}
+li{margin:4px 0}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:13px}
+th{background:#e8eaf6;color:#1a237e;padding:8px 10px;text-align:left;border:1px solid #c5cae9}
+td{padding:7px 10px;border:1px solid #e0e0e0}
+tr:nth-child(even) td{background:#fafbfc}
+.note{background:#fff8e1;border:1px solid #ffe082;border-radius:6px;padding:10px 14px;font-size:13px;color:#6d4c00;margin:12px 0}
+.code{background:#263238;color:#eeffff;border-radius:6px;padding:12px 16px;font-family:Consolas,Menlo,monospace;font-size:13px;overflow-x:auto;margin:10px 0;white-space:pre}
+.formula{background:#e3f2fd;border-radius:6px;padding:12px 16px;text-align:center;font-size:16px;color:#0d47a1;margin:10px 0;font-family:"Cambria Math",Georgia,serif}
+.tag{display:inline-block;font-size:11px;padding:1px 8px;border-radius:10px;background:#e3f2fd;color:#1565c0;margin:0 4px}
+.case{border:1px solid #e0e0e0;border-radius:8px;padding:14px 18px;margin:12px 0;background:#fafbfc}
+.case h3{margin-top:0}
+.ft{padding:16px 32px;background:#fafbfc;border-top:1px solid #eceff1;font-size:12px;color:#90a4ae;text-align:center}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="hd">
+    <h1>SQL 上机实验指导书<span class="badge">文档</span></h1>
+    <div class="meta">课程：数据库系统原理（SE301） &nbsp;|&nbsp; 2025-2026-1 &nbsp;|&nbsp; 资源编号：R008</div>
+  </div>
+  <div class="bd">
+<h2>实验总体说明</h2>
+<p>本课程共安排 4 次 SQL 上机实验（每次 2 学时），实验环境为 MySQL 8.0 + MySQL Workbench。实验数据库统一使用教务管理系统（jwgl）样例库，含 student、course、sc、teacher、department 五张表。请提前在个人电脑完成环境安装并导入建库脚本。</p>
+
+<h2>实验 1：数据定义与单表查询（2 学时）</h2>
+<p><strong>实验目的：</strong>掌握 CREATE TABLE、约束定义与 SELECT 基本查询。</p>
+<h3>实验内容与步骤</h3>
+<ol>
+<li>连接数据库，创建 jwgl 库并切换；</li>
+<li>按给定表结构创建 student 表（含主键、非空、默认值约束）；</li>
+<li>插入 10 条样例数据；</li>
+<li>完成查询练习：全体学生信息、按姓氏模糊查询、按入学年份分组统计；</li>
+<li>练习 ALTER TABLE 增加/删除列。</li>
+</ol>
+<h3>参考示例</h3><div class="code">CREATE TABLE student (
+  sno CHAR(10) PRIMARY KEY,
+  sname VARCHAR(20) NOT NULL,
+  gender CHAR(2) DEFAULT '男',
+  birthday DATE,
+  dno CHAR(4)
+);
+
+-- 查询姓'张'的学生
+SELECT sno, sname FROM student WHERE sname LIKE '张%';</div>
+<h3>验收要求</h3>
+<ul>
+<li>5 张表创建语句正确，约束完整；</li>
+<li>10 道查询练习题全部在 Workbench 中运行通过并截图。</li>
+</ul>
+
+<h2>实验 2：连接查询与嵌套查询（2 学时）</h2>
+<p><strong>实验目的：</strong>掌握等值连接、外连接、IN/EXISTS 嵌套查询。</p>
+<h3>实验内容与步骤</h3>
+<ol>
+<li>三表连接：查询学生姓名、课程名与成绩；</li>
+<li>左外连接：查询所有课程及其选修人数（含无人选修的课程）；</li>
+<li>IN 子查询：查询选修了"数据库"课程的学生姓名；</li>
+<li>EXISTS 相关子查询：查询选修了全部课程的学生；</li>
+<li>对比 NOT IN 与 NOT EXISTS 在含 NULL 时的行为差异并记录。</li>
+</ol>
+<h3>参考示例</h3><div class="code">-- 查询每门课程的平均分并降序排列
+SELECT c.cname, AVG(sc.grade) AS avg_grade
+FROM sc JOIN course c ON sc.cno = c.cno
+GROUP BY c.cno, c.cname
+ORDER BY avg_grade DESC;</div>
+<h3>验收要求</h3>
+<ul>
+<li>8 道练习题运行结果正确；</li>
+<li>在实验报告中解释 NOT IN 遇到 NULL 返回空集的原因。</li>
+</ul>
+
+<h2>实验 3：视图、索引与数据更新（2 学时）</h2>
+<p><strong>实验目的：</strong>掌握视图创建与更新限制、索引创建与执行计划分析。</p>
+<h3>实验内容与步骤</h3>
+<ol>
+<li>创建视图 v_avg：每个学生的学号、姓名、平均成绩；</li>
+<li>尝试对视图执行 UPDATE，观察并记录更新限制；</li>
+<li>在 sc(grade) 上创建索引，用 EXPLAIN 对比创建前后的查询计划；</li>
+<li>批量更新：将"数据库"课程成绩整体上调 5 分（不超过 100）；</li>
+<li>事务练习：显式开启事务执行更新，验证 ROLLBACK 效果。</li>
+</ol>
+<h3>参考示例</h3><div class="code">CREATE VIEW v_avg AS
+SELECT s.sno, s.sname, AVG(sc.grade) AS avg_grade
+FROM student s JOIN sc ON s.sno = sc.sno
+GROUP BY s.sno, s.sname;
+
+EXPLAIN SELECT * FROM sc WHERE grade &gt; 90;</div>
+<h3>验收要求</h3>
+<ul>
+<li>视图可正常查询且更新限制解释正确；</li>
+<li>EXPLAIN 输出截图中能看到索引命中（key 列非 NULL）。</li>
+</ul>
+
+<h2>实验 4：综合实验：迷你选课系统（2 学时）</h2>
+<p><strong>实验目的：</strong>综合运用 DDL/DML/视图/事务完成小型数据库应用设计。</p>
+<h3>实验内容与步骤</h3>
+<ol>
+<li>自行设计并创建"选课系统"数据库（不少于 4 张表，含外键）；</li>
+<li>实现选课登记（含事务：校验容量 + 插入选课记录）；</li>
+<li>实现统计视图：各班选课率排行；</li>
+<li>编写 3 个业务查询 SQL 并附设计说明；</li>
+<li>两人一组互评：检查对方数据库的约束完整性与范式合理性。</li>
+</ol>
+
+<h3>验收要求</h3>
+<ul>
+<li>现场演示选课登记事务（成功与回滚各一次）；</li>
+<li>提交完整建库脚本与查询脚本，命名规范。</li>
+</ul>
+<h2>实验报告要求</h2>
+<ul>
+<li>每次实验后 1 周内提交实验报告（PDF），含实验步骤、运行截图、问题与解决记录；</li>
+<li>报告第 4 节必须包含"思考与讨论"：分析实验中遇到的至少 1 个报错及排查过程；</li>
+<li>实验报告占总评的 30%，抄袭一经发现当次实验记 0 分。</li>
+</ul></div>
+  <div class="ft">爱教学平台 · 课程配套教学资源 · 仅供教学演示使用</div>
+</div>
+</body>
+</html>

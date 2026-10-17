@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>数据库系统原理-教学大纲.pdf — 数据库系统原理</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;line-height:1.8;color:#2c3e50;max-width:860px;margin:0 auto;padding:28px 20px;background:#f5f7fa}
+.page{background:#fff;border-radius:10px;box-shadow:0 2px 12px rgba(0,0,0,.08);overflow:hidden}
+.hd{background:linear-gradient(135deg,#1a237e,#3949ab);color:#fff;padding:26px 32px}
+.hd h1{font-size:22px;margin-bottom:8px}
+.hd .meta{font-size:13px;opacity:.85}
+.badge{display:inline-block;padding:2px 10px;border-radius:4px;font-size:12px;background:rgba(255,255,255,.2);margin-left:8px;vertical-align:middle}
+.bd{padding:26px 32px}
+h2{font-size:17px;color:#1a237e;margin:26px 0 10px;padding-left:10px;border-left:4px solid #3949ab}
+h2:first-child{margin-top:0}
+h3{font-size:15px;color:#283593;margin:16px 0 6px}
+p,li{font-size:14px;color:#37474f}
+ul,ol{padding-left:22px}
+li{margin:4px 0}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:13px}
+th{background:#e8eaf6;color:#1a237e;padding:8px 10px;text-align:left;border:1px solid #c5cae9}
+td{padding:7px 10px;border:1px solid #e0e0e0}
+tr:nth-child(even) td{background:#fafbfc}
+.note{background:#fff8e1;border:1px solid #ffe082;border-radius:6px;padding:10px 14px;font-size:13px;color:#6d4c00;margin:12px 0}
+.code{background:#263238;color:#eeffff;border-radius:6px;padding:12px 16px;font-family:Consolas,Menlo,monospace;font-size:13px;overflow-x:auto;margin:10px 0;white-space:pre}
+.formula{background:#e3f2fd;border-radius:6px;padding:12px 16px;text-align:center;font-size:16px;color:#0d47a1;margin:10px 0;font-family:"Cambria Math",Georgia,serif}
+.tag{display:inline-block;font-size:11px;padding:1px 8px;border-radius:10px;background:#e3f2fd;color:#1565c0;margin:0 4px}
+.case{border:1px solid #e0e0e0;border-radius:8px;padding:14px 18px;margin:12px 0;background:#fafbfc}
+.case h3{margin-top:0}
+.ft{padding:16px 32px;background:#fafbfc;border-top:1px solid #eceff1;font-size:12px;color:#90a4ae;text-align:center}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="hd">
+    <h1>数据库系统原理-教学大纲.pdf<span class="badge">文档</span></h1>
+    <div class="meta">课程：数据库系统原理（SE301） &nbsp;|&nbsp; 2025-2026-1 &nbsp;|&nbsp; 资源编号：R007</div>
+  </div>
+  <div class="bd">
+
+<h2>课程基本信息</h2>
+<table>
+<tr><th style="width:130px">课程名称</th><td>数据库系统原理</td><th style="width:110px">学分 / 学时</th><td>3.5 学分 / 56 学时</td></tr>
+<tr><th>开课学期</th><td>2025-2026-1</td><th>课程类别</th><td>必修</td></tr>
+<tr><th>主讲教师</th><td>李华 副教授</td><th>先修课程</th><td>数据结构、操作系统</td></tr>
+</table>
+
+<h2>课程目标</h2>
+<ol>
+<li>掌握数据库系统的基本概念、数据模型与体系结构；</li>
+<li>熟练使用 SQL 完成数据定义、查询、更新与视图操作；</li>
+<li>掌握关系规范化理论，能够进行数据库逻辑设计；</li>
+<li>理解事务、并发控制与数据库恢复的基本原理。</li>
+</ol>
+
+<h2>教学内容与学时分配</h2>
+<table>
+<tr><th style="width:50px">章次</th><th>教学内容</th><th style="width:60px">学时</th><th>教学要点</th></tr>
+<tr><td>1</td><td>数据库系统概述</td><td>6</td><td>三级模式两级映像、数据独立性、DBMS 功能</td></tr>
+<tr><td>2</td><td>关系模型与关系代数</td><td>8</td><td>关系运算、完整性约束、关系代数表达式</td></tr>
+<tr><td>3</td><td>SQL 语言</td><td>12</td><td>DDL/DML/DQL、连接查询、嵌套查询、视图</td></tr>
+<tr><td>4</td><td>关系规范化理论</td><td>10</td><td>函数依赖、1NF~BCNF、模式分解</td></tr>
+<tr><td>5</td><td>数据库设计</td><td>8</td><td>E-R 模型、概念结构→逻辑结构转换</td></tr>
+<tr><td>6</td><td>事务与并发控制</td><td>6</td><td>ACID、封锁协议、死锁、两段锁</td></tr>
+<tr><td>7</td><td>数据库恢复与安全性</td><td>4</td><td>日志、检查点、权限管理</td></tr>
+<tr><td>8</td><td>新型数据库简介</td><td>2</td><td>NoSQL、NewSQL、分布式数据库</td></tr>
+</table>
+
+
+<h2>考核方式</h2>
+<table>
+<tr><th>考核环节</th><th style="width:90px">占比</th><th>说明</th></tr>
+<tr><td>平时成绩</td><td>20%</td><td>作业 4 次 + 课堂互动</td></tr>
+<tr><td>上机实验</td><td>30%</td><td>4 次 SQL 实验（见《SQL 上机实验指导书》）</td></tr>
+<tr><td>期末考试</td><td>50%</td><td>闭卷，SQL 编程与规范化大题各占 20%</td></tr>
+</table>
+
+
+<h2>教材与参考资料</h2>
+<ul>
+<li>《数据库系统概论（第 6 版）》，王珊、杜小勇、陈红，高等教育出版社（主教材）</li>
+<li>《Database System Concepts (7th Edition)》，Silberschatz 等（参考）</li>
+<li>《MySQL 技术内幕：InnoDB 存储引擎》，姜承尧（工程拓展）</li>
+</ul></div>
+  <div class="ft">爱教学平台 · 课程配套教学资源 · 仅供教学演示使用</div>
+</div>
+</body>
+</html>

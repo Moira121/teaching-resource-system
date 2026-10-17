@@ -7,14 +7,15 @@ let currentPage = 1;
 const PAGE_SIZE = 50;
 let teacherInfo = null;
 
-function getTeacherInfo() {
-  try {
-    const raw = sessionStorage.getItem('teacherInfo');
-    if (!raw) return null;
-    return JSON.parse(raw);
-  } catch (e) {
+/** 登录守卫：无登录态或角色不符直接跳回首页（Sprint1 B3 边界兜底） */
+function requireRolePage(role) {
+  const auth = getAuth();
+  if (!auth || !auth.token || auth.role !== role) {
+    safeAlert('未检测到有效登录状态，请重新登录');
+    redirectToLogin();
     return null;
   }
+  return auth;
 }
 
 async function init() {
@@ -22,11 +23,11 @@ async function init() {
   setupModalClose();
   setupCourseTableDelegation();
 
-  teacherInfo = getTeacherInfo();
+  const auth = requireRolePage('teacher');
+  if (!auth) return;
+  teacherInfo = auth.teacher;
   if (!teacherInfo || !teacherInfo.id) {
-    safeAlert('未检测到登录状态，请重新登录');
-    sessionStorage.clear();
-    location.href = '/index.html';
+    redirectToLogin();
     return;
   }
 

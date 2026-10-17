@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>软件工程导论-教学大纲.pdf — 软件工程导论</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;line-height:1.8;color:#2c3e50;max-width:860px;margin:0 auto;padding:28px 20px;background:#f5f7fa}
+.page{background:#fff;border-radius:10px;box-shadow:0 2px 12px rgba(0,0,0,.08);overflow:hidden}
+.hd{background:linear-gradient(135deg,#1a237e,#3949ab);color:#fff;padding:26px 32px}
+.hd h1{font-size:22px;margin-bottom:8px}
+.hd .meta{font-size:13px;opacity:.85}
+.badge{display:inline-block;padding:2px 10px;border-radius:4px;font-size:12px;background:rgba(255,255,255,.2);margin-left:8px;vertical-align:middle}
+.bd{padding:26px 32px}
+h2{font-size:17px;color:#1a237e;margin:26px 0 10px;padding-left:10px;border-left:4px solid #3949ab}
+h2:first-child{margin-top:0}
+h3{font-size:15px;color:#283593;margin:16px 0 6px}
+p,li{font-size:14px;color:#37474f}
+ul,ol{padding-left:22px}
+li{margin:4px 0}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:13px}
+th{background:#e8eaf6;color:#1a237e;padding:8px 10px;text-align:left;border:1px solid #c5cae9}
+td{padding:7px 10px;border:1px solid #e0e0e0}
+tr:nth-child(even) td{background:#fafbfc}
+.note{background:#fff8e1;border:1px solid #ffe082;border-radius:6px;padding:10px 14px;font-size:13px;color:#6d4c00;margin:12px 0}
+.code{background:#263238;color:#eeffff;border-radius:6px;padding:12px 16px;font-family:Consolas,Menlo,monospace;font-size:13px;overflow-x:auto;margin:10px 0;white-space:pre}
+.formula{background:#e3f2fd;border-radius:6px;padding:12px 16px;text-align:center;font-size:16px;color:#0d47a1;margin:10px 0;font-family:"Cambria Math",Georgia,serif}
+.tag{display:inline-block;font-size:11px;padding:1px 8px;border-radius:10px;background:#e3f2fd;color:#1565c0;margin:0 4px}
+.case{border:1px solid #e0e0e0;border-radius:8px;padding:14px 18px;margin:12px 0;background:#fafbfc}
+.case h3{margin-top:0}
+.ft{padding:16px 32px;background:#fafbfc;border-top:1px solid #eceff1;font-size:12px;color:#90a4ae;text-align:center}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="hd">
+    <h1>软件工程导论-教学大纲.pdf<span class="badge">文档</span></h1>
+    <div class="meta">课程：软件工程导论（SE101） &nbsp;|&nbsp; 2025-2026-1 &nbsp;|&nbsp; 资源编号：R001</div>
+  </div>
+  <div class="bd">
+<h2>课程简介</h2>
+<p>《软件工程导论》是软件工程专业的学科基础必修课，旨在将学生从"会写程序"引导到"会做软件"。课程以软件生命周期为主线，覆盖需求、设计、实现、测试、维护与项目管理六大知识域，帮助学生建立工程化、系统化、规范化的软件开发观。</p>
+<p>课程教学采用"理论讲授 + 课内实验 + 课程作业"三位一体模式：理论课讲授经典方法与模型；2 次课内实验在机房完成需求建模与测试设计实战；4 次课后作业覆盖可行性分析、需求规格说明书、总体设计与测试用例设计，形成完整的小型项目文档链。</p>
+<p>通过本课程学习，学生应能理解软件危机的成因与软件工程的对策，掌握结构化分析与设计方法，具备编写规范工程文档的能力，为后续《软件体系结构》《软件项目管理》《软件测试技术》等课程奠定基础。</p>
+
+<h2>课程基本信息</h2>
+<table>
+<tr><th style="width:130px">课程名称</th><td>软件工程导论</td><th style="width:110px">学分 / 学时</th><td>3 学分 / 48 学时</td></tr>
+<tr><th>开课学期</th><td>2025-2026-1</td><th>课程类别</th><td>必修</td></tr>
+<tr><th>主讲教师</th><td>张明 教授</td><th>先修课程</th><td>程序设计基础、数据结构</td></tr>
+</table>
+
+<h2>课程目标</h2>
+<ol>
+<li>掌握软件工程的基本概念、原理和方法，理解软件生命周期各阶段的任务、方法与产物，能阐述软件危机的表现与工程化对策；</li>
+<li>能够运用结构化方法完成中小型软件的需求分析：独立绘制分层数据流图、建立数据字典、编写符合 GB/T 9385 风格的需求规格说明书；</li>
+<li>掌握面向数据流的总体设计方法，理解模块化、耦合、内聚等设计原理，能将 DFD 变换为初始结构图并进行启发式优化；</li>
+<li>掌握白盒测试（语句/判定/条件覆盖）与黑盒测试（等价类、边界值）用例设计方法，能针对给定程序设计完整测试方案；</li>
+<li>了解软件维护的四类活动与软件项目管理的基本内容（进度、风险、配置管理），建立初步的质量意识与团队协作意识。</li>
+</ol>
+
+<h2>教学内容与学时分配</h2>
+<table>
+<tr><th style="width:50px">章次</th><th>教学内容</th><th style="width:60px">学时</th><th>教学要点</th></tr>
+<tr><td>1</td><td>软件工程概述</td><td>4</td><td>软件危机、软件工程定义、三要素、软件过程模型（瀑布/原型/增量/螺旋/敏捷）</td></tr>
+<tr><td>2</td><td>可行性研究与项目计划</td><td>4</td><td>技术/经济/操作/法律可行性、成本效益分析、投资回收期计算</td></tr>
+<tr><td>3</td><td>需求分析</td><td>8</td><td>需求获取技术、数据流图 DFD、数据字典 DD、加工逻辑描述（结构化语言/判定表/判定树）、SRS 编写</td></tr>
+<tr><td>4</td><td>总体设计</td><td>6</td><td>模块化原理、耦合七级与内聚七级、启发式规则、面向数据流的变换分析与事务分析</td></tr>
+<tr><td>5</td><td>详细设计</td><td>4</td><td>程序流程图、N-S 盒图、PAD 图、判定表、Jackson 方法简介</td></tr>
+<tr><td>6</td><td>编码与实现</td><td>4</td><td>程序设计语言选择、编码风格规范、McCabe 环路复杂度度量</td></tr>
+<tr><td>7</td><td>软件测试</td><td>8</td><td>测试V模型、白盒覆盖准则、等价类划分、边界值分析、单元/集成/确认/系统测试、调试策略</td></tr>
+<tr><td>8</td><td>软件维护</td><td>4</td><td>改正性/适应性/完善性/预防性维护、可维护性度量、逆向工程与再工程</td></tr>
+<tr><td>9</td><td>软件项目管理</td><td>4</td><td>规模估算（LOC/FP）、COCOMO 模型、进度计划（Gantt/PERT）、风险管理、配置管理</td></tr>
+<tr><td>10</td><td>敏捷开发与 DevOps 简介</td><td>2</td><td>敏捷宣言与 Scrum 框架、极限编程实践、CI/CD 流水线概念</td></tr>
+</table>
+
+<h2>教学进度周历</h2>
+<table>
+<tr><th style="width:60px">周次</th><th>教学内容</th><th>课后任务</th></tr>
+<tr><td>1</td><td>第1章 软件工程概述（上）：软件危机与软件工程</td><td>阅读教材第1章，思考软件危机的成因</td></tr>
+<tr><td>2</td><td>第1章（下）：软件过程模型对比</td><td>作业1发布：过程模型选型分析</td></tr>
+<tr><td>3</td><td>第2章 可行性研究与项目计划</td><td>作业1提交</td></tr>
+<tr><td>4</td><td>第3章 需求分析：需求获取与建模</td><td>作业2发布：需求规格说明书（大作业，4周）</td></tr>
+<tr><td>5</td><td>第3章（中）：DFD 绘制实战</td><td>完成顶层图与1层图初稿</td></tr>
+<tr><td>6</td><td>第3章（下）：数据字典与加工逻辑；实验一：需求建模</td><td>实验报告1</td></tr>
+<tr><td>7</td><td>第4章 总体设计：模块化与设计原理</td><td>完善SRS并提交</td></tr>
+<tr><td>8</td><td>第4章（下）：变换分析与事务分析</td><td>作业3发布：总体设计</td></tr>
+<tr><td>9</td><td>期中复习与答疑</td><td>作业3提交；期中测验</td></tr>
+<tr><td>10</td><td>第5章 详细设计：图形工具与判定表</td><td>PAD图绘制练习</td></tr>
+<tr><td>11</td><td>第6章 编码与实现；代码评审实践</td><td>阅读编码规范文档</td></tr>
+<tr><td>12</td><td>第7章 软件测试：白盒测试方法</td><td>作业4发布：测试用例设计</td></tr>
+<tr><td>13</td><td>第7章（中）：黑盒测试方法</td><td>等价类划分练习</td></tr>
+<tr><td>14</td><td>第7章（下）：测试策略；实验二：测试设计</td><td>实验报告2；作业4提交</td></tr>
+<tr><td>15</td><td>第8章 软件维护；第9章 项目管理（上）</td><td>整理全部作业文档归档</td></tr>
+<tr><td>16</td><td>第9章（下）+ 第10章 敏捷简介；总复习</td><td>期末复习</td></tr>
+</table>
+
+<h2>考核方式</h2>
+<table>
+<tr><th>考核环节</th><th style="width:90px">占比</th><th>说明</th></tr>
+<tr><td>平时成绩（出勤+课堂互动）</td><td>10%</td><td>雨课堂签到与随堂测验，旷课3次取消考试资格</td></tr>
+<tr><td>课后作业（4次）</td><td>20%</td><td>作业1过程模型5分、作业2需求规格说明书10分（大作业）、作业3总体设计3分、作业4测试设计2分</td></tr>
+<tr><td>课程实验（2次）</td><td>20%</td><td>实验一需求建模（StarUML）10分、实验二测试设计10分，现场验收+实验报告</td></tr>
+<tr><td>期末考试</td><td>50%</td><td>闭卷笔试120分钟，题型：单选20分、填空10分、简答20分、综合应用50分（DFD/设计/测试各一题）</td></tr>
+</table>
+
+<h2>课内实验安排</h2>
+<h3>实验一：需求建模实战（2 学时）</h3>
+<p>以"图书馆管理系统"为题，使用 StarUML/Visio 完成上下文图、1层DFD与核心数据字典定义，现场验收建模的正确性与规范性。重点考察父子图平衡、数据流守恒、加工编号规则。</p>
+<h3>实验二：测试用例设计（2 学时）</h3>
+<p>针对给定的"三角形分类"程序，分别用语句覆盖、判定覆盖、条件覆盖设计白盒用例，再用等价类划分与边界值分析设计黑盒用例，比较两类方法的查错能力差异。</p>
+
+<h2>教材与参考资料</h2>
+<ul>
+<li>《软件工程导论（第6版）》，张海藩、牟永敏，清华大学出版社，2013（主教材，作业与考试依据）</li>
+<li>《Software Engineering (10th Edition)》，Ian Sommerville，机械工业出版社，2018（英文参考，适合拓展）</li>
+<li>《敏捷软件开发：原则、模式与实践》，Robert C. Martin，清华大学出版社（第10章拓展阅读）</li>
+<li>《构建之法（第3版）》，邹欣，人民邮电出版社（工程实践与文化拓展，强烈推荐）</li>
+</ul></div>
+  <div class="ft">爱教学平台 · 课程配套教学资源 · 仅供教学演示使用</div>
+</div>
+</body>
+</html>

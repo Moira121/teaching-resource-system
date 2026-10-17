@@ -1,21 +1,25 @@
 {
-  "name": "sprint1",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "aijiaoxue",
+  "version": "2.0.0",
+  "description": "爱教学平台 Sprint2：课程查询 + 三角色鉴权 + 教学资源模块",
+  "main": "server.js",
   "scripts": {
     "init-db": "node scripts/init-db.js",
     "start": "node server.js",
     "dev": "node server.js",
-    "test": "node --test tests/api.test.js"
+    "lint": "eslint .",
+    "test": "node --test --test-concurrency=1 tests/auth.test.js tests/courses.test.js tests/resources.test.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "better-sqlite3": "^13.0.3",
-    "compression": "^1.8.2",
-    "express": "^5.2.1"
+    "better-sqlite3": "13.0.3",
+    "compression": "1.8.2",
+    "express": "5.2.1"
+  },
+  "devDependencies": {
+    "eslint": "^9.39.4"
   }
 }

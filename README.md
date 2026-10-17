@@ -1,125 +1,115 @@
-# 爱教学 · Sprint1
+# 爱教学平台
 
-教学质量全链路数字化管理平台 —— Sprint1 最小可用版本：**课程信息查询核心能力**。
+教学质量全链路数字化管理平台。
 
-三种角色（教研室主任 / 教学督导 / 教师）均可查看、筛选基础课程数据，前后端分离，数据持久化于 SQLite。
+- **Sprint1**：课程信息查询核心能力（三角色查看/筛选基础课程数据）
+- **Sprint2**：三角色后端鉴权 + 教学资源模块（当前，分支 `feature/sprint2-resources`）
 
 ---
 
 ## 功能概览
 
-| 角色 | 入口页面 | 核心能力 |
-|------|----------|----------|
-| 教研室主任 | `director.html` | 统筹视角：全院课程总览，支持学期/学院/教研室/类别/关键词组合筛选与分页 |
-| 教学督导 | `supervisor.html` | 听课视角：按教师筛选课程确定听课对象，统计口径随选中教师动态切换 |
-| 教师 | `teacher.html` | 个人视角：仅查看本人所授课程，核对开课信息 |
+| 角色 | 入口页面 | Sprint1 能力 | Sprint2 新增 |
+|------|----------|--------------|--------------|
+| 教研室主任 | `director.html` | 全院课程多条件筛选/分页 | 按学期+学院筛选课程；只读浏览课程教学资源 |
+| 教学督导 | `supervisor.html` | 按教师筛选确定听课对象 | 只读浏览课程配套资源（禁止一切写操作） |
+| 教师 | `teacher.html` | 仅查看本人课程 | 查看本人课程资源；对本人课程资源增/改/删 |
 
-通用能力：
-
-- 课程列表分页（后端 `LIMIT/OFFSET`，前端分页器）
-- 关键词搜索（SQL 通配符 `%/_/#` 已转义，防误匹配）
-- 课程详情弹窗（含空值保护）
-- 统计卡片（课程数 / 教师数 / 学生人次 / 总学时）
-- 请求统一兜底（HTTP 状态码 + 业务码检查 + 友好提示，杜绝白屏）
-- 搜索竞态防护（递增令牌，旧响应自动丢弃）
+课程详情弹窗内嵌「📎 教学资源」区：教师本人课程显示管理表单，主任/督导仅见只读列表。
 
 ---
 
 ## 技术栈
 
-- **后端**：Node.js + Express 5 + better-sqlite3（只读模式打开）
-- **前端**：原生 HTML/CSS/JavaScript，多页应用
-- **数据库**：SQLite（WAL 模式，5 个查询索引）
-- **测试**：Node 内置 `node:test`，无需额外测试框架
+- 后端：Node.js + Express 5 + better-sqlite3（版本精确锁定 13.0.3）
+- 前端：原生 HTML/CSS/JavaScript 多页应用
+- 鉴权：登录下发 HMAC-SHA256 签名 token，`Authorization: Bearer` 校验
+- 测试：Node 内置 `node:test`，零测试框架依赖
+- 代码规范：ESLint 9（`npm run lint`）
 
 ---
 
 ## 运行指南
 
-### 环境要求
-
-- Node.js >= 18（建议 20+，开发验证于 v24）
-
-### 1. 安装依赖
+环境要求：Node.js >= 18（开发验证于 Node 24）。
 
 ```powershell
-npm.cmd install
+npm.cmd install        # 安装依赖
+npm.cmd run init-db    # 初始化数据库（7 教师 / 12 课程 / 15 条教学资源）
+npm.cmd start          # 启动服务 http://localhost:3000
+npm.cmd test           # 运行全部 51 条测试（串行，约 18 秒）
+npm.cmd run lint       # ESLint 检查
 ```
 
-### 2. 初始化数据库
+测试说明：
 
-```powershell
-npm.cmd run init-db
-```
+- 使用 `--test-concurrency=1` 串行执行（等效旧版 Node 的 `--no-concurrency`），
+  配合 **每个用例独立创建/销毁临时数据库与独立服务进程**，
+  规避 better-sqlite3 原生句柄复用导致的随机 SIGSEGV。
+- 用例分三组：`tests/auth.test.js`（鉴权权限矩阵）、`tests/courses.test.js`（Sprint1 回归）、`tests/resources.test.js`（资源 CRUD 与越权）。
 
-输出 `数据库初始化成功：7 位教师，12 门课程` 即完成。数据库文件位于 `data/teaching.db`。
+---
 
-### 3. 启动服务
+## 权限矩阵（Sprint2 后端强制校验）
 
-```powershell
-npm.cmd start
-```
+| 接口 | 主任 | 督导 | 教师 |
+|------|------|------|------|
+| 课程列表 `/api/courses` | 全部 | 全部 | **强制仅本人课程**（忽略客户端 teacherId） |
+| 课程详情 / 课程统计 | 全部 | 全部 | 仅本人 |
+| `/api/teachers` | ✅ | ✅ | 403 |
+| 全院统计 `/api/stats` | ✅ | ✅ | 403 |
+| 浏览课程资源 | ✅ 只读 | ✅ 只读 | 仅本人课程 |
+| 新增/修改/删除资源 | 403 | **403** | 仅本人课程资源 |
 
-访问 http://localhost:3000 ，选择角色进入系统（选择"教师"时需再选具体教师身份）。
+所有接口均做入参校验（ID 格式、分页边界、关键词长度、资源名称/类型/链接），错误统一返回 `{code,message}`，生产响应不泄露数据库错误细节。
 
-### 4. 运行测试
+---
 
-```powershell
-npm.cmd test
-```
+## 教学资源模块
 
-测试会在 **3100 端口**自动拉起独立服务实例，执行 13 个 API 集成用例后自动关闭，不影响开发服务器。
+数据表 `resources`：`id / course_id / name / type(课件|文档|视频|链接|作业) / url / description / created_at`，外键关联课程，建有 `idx_resources_course` 索引。
+
+| 方法 | 路径 | 权限 |
+|------|------|------|
+| GET | `/api/courses/:courseId/resources` | 主任/督导/课程所属教师 |
+| POST | `/api/courses/:courseId/resources` | 课程所属教师 |
+| PUT | `/api/resources/:id` | 资源所属课程的教师 |
+| DELETE | `/api/resources/:id` | 资源所属课程的教师 |
+
+全部 SQL 均为参数化查询；登录接口 `POST /api/auth/login` 与登录名录 `GET /api/auth/teachers` 公开。
 
 ---
 
 ## 目录结构
 
 ```
-Sprint1/
-├── server.js              # Express 服务 + 全部 REST API
-├── package.json
+├── server.js                 # Express 服务 + 路由（鉴权/课程/资源）
+├── lib/
+│   ├── auth.js               # token 签发校验 + requireAuth/requireRole
+│   └── validate.js           # 入参校验
 ├── scripts/
-│   └── init-db.js         # 数据库初始化（建表/索引/种子数据/WAL 清理）
-├── data/
-│   └── teaching.db        # SQLite 数据库（init-db 生成，勿提交）
-├── public/                # 前端静态资源
-│   ├── index.html         # 角色选择（登录）页
-│   ├── director.html      # 教研室主任
-│   ├── supervisor.html    # 教学督导
-│   ├── teacher.html       # 教师
-│   ├── css/style.css
-│   └── js/
-│       ├── common.js      # 共享层：rawRequest 兜底 / API 封装 / 分页器 / 事件委托 / 详情弹窗
-│       ├── login.js
-│       ├── director.js
-│       ├── supervisor.js
-│       └── teacher.js
+│   ├── db-init.js            # 建库模块（测试复用，支持任意路径）
+│   ├── seed-data.js          # 教师/课程/资源种子数据（从 init-db 拆出）
+│   └── init-db.js            # 建库 CLI
+├── public/                   # 前端多页应用（登录/主任/督导/教师）
 └── tests/
-    └── api.test.js        # API 集成测试（13 用例）
+    ├── helpers/test-server.js# 每用例独立临时库 + 独立服务助手
+    ├── auth.test.js          # 13 条鉴权/越权用例
+    ├── courses.test.js       # 19 条 Sprint1 回归用例
+    └── resources.test.js     # 19 条资源模块用例
 ```
 
 ---
 
-## API 一览
+## CI（GitHub Actions）
 
-| 方法 | 路径 | 说明 |
-|------|------|------|
-| GET | `/api/courses` | 课程列表，支持 `keyword/semester/college/department/category/teacherId/page/pageSize` |
-| GET | `/api/courses/:id` | 课程详情（不存在返回 404） |
-| GET | `/api/teachers` | 教师列表 |
-| GET | `/api/teachers/:id` | 教师详情 |
-| GET | `/api/teachers/:id/courses` | 某教师的全部课程 |
-| GET | `/api/teachers/:id/stats` | 教师维度统计 |
-| GET | `/api/stats` | 全局统计（单条聚合 SQL） |
-| GET | `/api/filter-options` | 筛选项（进程内缓存） |
+- 配置文件：`.github/workflows/ci.yml`，push / PR / 手动触发
+- **Lint 作业**：Node 24 + ESLint（`npm run lint`）
+- **Test 作业**：`npm ci` → `init-db` 冒烟 → 51 条测试串行执行，
+  矩阵覆盖 Ubuntu/Windows × Node 22/24，验证 better-sqlite3 稳定性修复跨平台不回归
+- 推送到 GitHub 后自动生效（当前仓库未配置 remote，添加后 `git push -u origin feature/sprint2-resources` 即可看到运行结果）
 
-统一响应格式：`{ code: 0, data: ... }`；课程列表额外返回 `total/page/pageSize`；错误统一 `{ code: 500, message: '服务器内部错误' }`（不泄露内部细节）。
+## 分支与提交
 
----
-
-## 安全与性能要点
-
-- 数据库以 `readonly: true` 打开，服务端无写入面
-- 搜索关键词使用 `LIKE ... ESCAPE '#'` 转义 `%/_/#`
-- 静态资源 `maxAge: 1h` 缓存 + `compression` gzip 压缩
-- `courses` 表建有 5 个索引（teacher_id / semester / college / department / category）
+- `main`：Sprint1 基线
+- `feature/sprint2-resources`：Sprint2 全部变更（**不合入主干，等待人工 diff 审查后合并**）

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>需求分析作业模板 — 软件工程导论</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;line-height:1.8;color:#2c3e50;max-width:860px;margin:0 auto;padding:28px 20px;background:#f5f7fa}
+.page{background:#fff;border-radius:10px;box-shadow:0 2px 12px rgba(0,0,0,.08);overflow:hidden}
+.hd{background:linear-gradient(135deg,#1a237e,#3949ab);color:#fff;padding:26px 32px}
+.hd h1{font-size:22px;margin-bottom:8px}
+.hd .meta{font-size:13px;opacity:.85}
+.badge{display:inline-block;padding:2px 10px;border-radius:4px;font-size:12px;background:rgba(255,255,255,.2);margin-left:8px;vertical-align:middle}
+.bd{padding:26px 32px}
+h2{font-size:17px;color:#1a237e;margin:26px 0 10px;padding-left:10px;border-left:4px solid #3949ab}
+h2:first-child{margin-top:0}
+h3{font-size:15px;color:#283593;margin:16px 0 6px}
+p,li{font-size:14px;color:#37474f}
+ul,ol{padding-left:22px}
+li{margin:4px 0}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:13px}
+th{background:#e8eaf6;color:#1a237e;padding:8px 10px;text-align:left;border:1px solid #c5cae9}
+td{padding:7px 10px;border:1px solid #e0e0e0}
+tr:nth-child(even) td{background:#fafbfc}
+.note{background:#fff8e1;border:1px solid #ffe082;border-radius:6px;padding:10px 14px;font-size:13px;color:#6d4c00;margin:12px 0}
+.code{background:#263238;color:#eeffff;border-radius:6px;padding:12px 16px;font-family:Consolas,Menlo,monospace;font-size:13px;overflow-x:auto;margin:10px 0;white-space:pre}
+.formula{background:#e3f2fd;border-radius:6px;padding:12px 16px;text-align:center;font-size:16px;color:#0d47a1;margin:10px 0;font-family:"Cambria Math",Georgia,serif}
+.tag{display:inline-block;font-size:11px;padding:1px 8px;border-radius:10px;background:#e3f2fd;color:#1565c0;margin:0 4px}
+.case{border:1px solid #e0e0e0;border-radius:8px;padding:14px 18px;margin:12px 0;background:#fafbfc}
+.case h3{margin-top:0}
+.ft{padding:16px 32px;background:#fafbfc;border-top:1px solid #eceff1;font-size:12px;color:#90a4ae;text-align:center}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="hd">
+    <h1>需求分析作业模板<span class="badge">作业</span></h1>
+    <div class="meta">课程：软件工程导论（SE101） &nbsp;|&nbsp; 2025-2026-1 &nbsp;|&nbsp; 资源编号：R003</div>
+  </div>
+  <div class="bd">
+<h2>一、作业背景</h2>
+<p>假设你是"校园二手书交易平台"项目的需求分析师。该平台面向全校 2 万名师生，核心目标是解决毕业季教材浪费与教材购置成本高的痛点。平台支持发布求购/出售信息、按课程/ISBN 检索、站内私信沟通、线下当面交易与双向信用评价。学校教务处关心平台是否会冲击教材统一征订渠道，学工部关心交易纠纷的处理机制。你的任务：运用第 3 章所学的结构化需求分析方法，在 4 周内完成该平台的需求规格说明书，并通过需求评审。</p>
+<h2>二、任务要求</h2>
+<ol>
+<li>需求获取：设计访谈提纲（至少 8 个开放式问题），分别模拟访谈"毕业生卖家"与"新生买家"两类用户，整理 2 份访谈记录（每份不少于 500 字），归纳出用户的显性需求与隐性需求；</li>
+<li>系统边界建模：绘制系统上下文图（顶层 DFD），明确外部实体（学生、教务系统、支付平台）与系统的交互数据流；</li>
+<li>功能分解：绘制 1 层数据流图，加工数量控制在 5~7 个，保证与顶层图严格平衡（输入/输出数据流一致）；</li>
+<li>数据字典：至少定义 6 个数据流、3 个数据存储、2 个加工的逻辑说明（分别使用结构化语言与判定表各描述 1 个加工）；</li>
+<li>编写需求规格说明书（SRS）：按模板完成引言、总体描述、功能需求（FR-01 ~ FR-15）、性能需求、接口需求、约束条件六个章节；</li>
+<li>用例补充：选择"发布出售信息""在线沟通议价""交易评价"3 个核心功能，每个用例给出基本流与至少 2 个备选流；</li>
+<li>非功能需求：明确响应时间（列表页 &lt; 2s）、并发能力（支持 500 在线）、可用性（99.5%）等可量化指标；</li>
+<li>自查与评审：对照课程发布的《需求评审检查单》逐项自查并打勾，随 SRS 一并提交。</li>
+</ol>
+<h2>三、提交内容与格式</h2>
+<table>
+<tr><th>提交物</th><th>格式要求</th><th>命名规范</th></tr>
+<tr><td>需求规格说明书（SRS）</td><td>PDF，按课程模板章节编排，正文 12~15 页，A4 宋体小四</td><td>SRS-学号-姓名.pdf</td></tr>
+<tr><td>DFD 建模源文件</td><td>drawio / Visio / StarUML 源文件打包，图清晰可读</td><td>DFD-学号-姓名.zip</td></tr>
+<tr><td>访谈记录 2 份</td><td>并入 SRS 附录 A，含访谈时间/对象/问题/记录</td><td>与 SRS 合并提交</td></tr>
+<tr><td>需求评审检查单</td><td>课程平台下载模板，逐项勾选并签名</td><td>Checklist-学号-姓名.pdf</td></tr>
+</table>
+<h2>四、评分标准</h2>
+<table>
+<tr><th>评分项</th><th style="width:80px">分值</th><th>评分说明</th></tr>
+<tr><td>DFD 正确性与平衡</td><td>30 分</td><td>父子图平衡 10 分、数据流守恒 10 分、加工编号与分解合理性 10 分；出现数据流断流或黑洞加工每处扣 5 分</td></tr>
+<tr><td>数据字典完整性</td><td>20 分</td><td>定义格式规范（使用 = + [ ] { } 符号）8 分，覆盖 DFD 全部数据流与存储 8 分，加工逻辑无歧义 4 分</td></tr>
+<tr><td>SRS 文档质量</td><td>25 分</td><td>结构完整 5 分、需求可验证（无二义性词汇如"快速""友好"）10 分、功能需求编号与追踪性 5 分、非功能需求可量化 5 分</td></tr>
+<tr><td>用例描述</td><td>15 分</td><td>基本流/备选流划分合理 8 分，前置/后置条件清晰 4 分，异常流覆盖 3 分</td></tr>
+<tr><td>排版与规范</td><td>10 分</td><td>图表编号连续、术语表完整、参考文献符合 GB/T 7714 格式</td></tr>
+</table>
+<div class="note">⏰ 截止时间：第 8 周周五 23:59（教学平台提交，第 4 周发布，共 4 周完成）。逾期提交每天扣 10 分，超过一周不予接收。学术诚信红线：严禁抄袭，一经发现本次作业记 0 分并按学院规定处理。</div></div>
+  <div class="ft">爱教学平台 · 课程配套教学资源 · 仅供教学演示使用</div>
+</div>
+</body>
+</html>

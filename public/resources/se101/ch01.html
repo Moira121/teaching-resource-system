@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>第1章 软件工程概述（课件） — 软件工程导论</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;line-height:1.8;color:#2c3e50;max-width:860px;margin:0 auto;padding:28px 20px;background:#f5f7fa}
+.page{background:#fff;border-radius:10px;box-shadow:0 2px 12px rgba(0,0,0,.08);overflow:hidden}
+.hd{background:linear-gradient(135deg,#1a237e,#3949ab);color:#fff;padding:26px 32px}
+.hd h1{font-size:22px;margin-bottom:8px}
+.hd .meta{font-size:13px;opacity:.85}
+.badge{display:inline-block;padding:2px 10px;border-radius:4px;font-size:12px;background:rgba(255,255,255,.2);margin-left:8px;vertical-align:middle}
+.bd{padding:26px 32px}
+h2{font-size:17px;color:#1a237e;margin:26px 0 10px;padding-left:10px;border-left:4px solid #3949ab}
+h2:first-child{margin-top:0}
+h3{font-size:15px;color:#283593;margin:16px 0 6px}
+p,li{font-size:14px;color:#37474f}
+ul,ol{padding-left:22px}
+li{margin:4px 0}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:13px}
+th{background:#e8eaf6;color:#1a237e;padding:8px 10px;text-align:left;border:1px solid #c5cae9}
+td{padding:7px 10px;border:1px solid #e0e0e0}
+tr:nth-child(even) td{background:#fafbfc}
+.note{background:#fff8e1;border:1px solid #ffe082;border-radius:6px;padding:10px 14px;font-size:13px;color:#6d4c00;margin:12px 0}
+.code{background:#263238;color:#eeffff;border-radius:6px;padding:12px 16px;font-family:Consolas,Menlo,monospace;font-size:13px;overflow-x:auto;margin:10px 0;white-space:pre}
+.formula{background:#e3f2fd;border-radius:6px;padding:12px 16px;text-align:center;font-size:16px;color:#0d47a1;margin:10px 0;font-family:"Cambria Math",Georgia,serif}
+.tag{display:inline-block;font-size:11px;padding:1px 8px;border-radius:10px;background:#e3f2fd;color:#1565c0;margin:0 4px}
+.case{border:1px solid #e0e0e0;border-radius:8px;padding:14px 18px;margin:12px 0;background:#fafbfc}
+.case h3{margin-top:0}
+.ft{padding:16px 32px;background:#fafbfc;border-top:1px solid #eceff1;font-size:12px;color:#90a4ae;text-align:center}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="hd">
+    <h1>第1章 软件工程概述（课件）<span class="badge">课件</span></h1>
+    <div class="meta">课程：软件工程导论（SE101） &nbsp;|&nbsp; 2025-2026-1 &nbsp;|&nbsp; 资源编号：R002</div>
+  </div>
+  <div class="bd">
+<h2>1.1 软件与软件危机</h2>
+<p>软件是计算机系统中与硬件相互依存的另一部分，包括程序、数据及其相关文档的完整集合。程序是按事先设计的功能和性能要求执行的指令序列；数据是使程序能正常操纵信息的数据结构；文档是与程序开发、维护和使用有关的图文材料。</p>
+<p>与硬件不同，软件是逻辑实体，具有抽象性、不可见性和不会"磨损"的特点。但软件会"退化"——每次修改都可能引入新的缺陷，使软件结构逐渐腐化。</p>
+<p>1968 年北大西洋公约组织（NATO）在德国加尔米施召开的会议上首次提出"软件危机"（Software Crisis）一词，指软件开发与维护过程中遇到的一系列严重问题。</p>
+<ul><li>软件危机的典型表现：</li>
+<li>① 开发成本与进度难以准确估算，项目常常严重超支超期；</li>
+<li>② 交付的软件产品常常不能满足用户实际需求；</li>
+<li>③ 软件质量不可靠，缺陷频发，典型案例：Therac-25 放疗设备软件缺陷致多人死亡；</li>
+<li>④ 软件可维护性差，"改一处、坏三处"，维护成本占生命周期总成本的 40%~80%；</li>
+<li>⑤ 缺乏规范文档，人员流动导致知识断层；</li>
+<li>⑥ 软件生产率提升速度远跟不上硬件与需求的增长。</li></ul>
+
+
+<div class="note">课堂讨论：软件危机产生的原因是什么？提示：从软件本身特点（复杂性、不可见性、易变性）与开发方法（手工作坊式、轻视需求与维护）两个层面思考。</div>
+
+<h2>1.2 软件工程的定义</h2>
+<p>Fritz Bauer 在 1969 年给出经典定义：软件工程是为了经济地获得能够在实际机器上有效运行的可靠软件而建立和使用的一系列完善的工程化原则。</p>
+<p>IEEE 610.12 标准定义：软件工程是将系统化的、严格约束的、可量化的方法应用于软件的开发、运行和维护，即将工程化应用于软件；同时也研究这些方法。</p>
+<p>Boehm 进一步指出：软件工程是运用现代科学技术知识来设计并构造计算机程序及为开发、运行和维护这些程序所必需的相关文件资料。</p>
+
+
+
+<div class="note">记忆要点：软件工程三要素 = 方法（如何做）+ 工具（用什么做）+ 过程（何时做、按什么顺序做）。三者构成"软件工程层次图"的基础。</div>
+
+<h2>1.3 软件工程三要素详解</h2>
+<p>三要素相互支撑：没有过程约束的方法会流于随意；没有工具支撑的过程会效率低下；没有方法指导的工具只是空壳。</p>
+
+
+<table><tr><th>要素</th><th>含义</th><th>典型代表</th></tr><tr><td>方法</td><td>完成软件工程任务的技术方法，回答"怎么做"</td><td>结构化方法、面向对象方法、形式化方法</td></tr>
+<tr><td>工具</td><td>为方法提供自动或半自动支撑的软件环境</td><td>CASE 工具：StarUML、Git、Jenkins、Jira</td></tr>
+<tr><td>过程</td><td>将方法与工具综合起来的框架，规定任务步骤</td><td>RUP、XP、Scrum、DevOps 流水线</td></tr></table>
+
+
+<h2>1.4 软件生命周期</h2>
+<p>每个阶段都有明确的任务、里程碑与交付物（文档）。软件生命周期模型回答的核心问题是：按什么样的顺序组织这些活动，才能高效、可控地交付软件？</p>
+<ul><li>软件定义期：问题定义 → 可行性研究 → 需求分析。回答"做什么"；</li>
+<li>软件开发期：总体设计 → 详细设计 → 编码 → 测试。回答"怎么做"；</li>
+<li>软件维护期：改正性维护、适应性维护、完善性维护、预防性维护。回答"如何改"。</li></ul>
+
+<table><tr><th>维护类型</th><th>占比（约）</th><th>触发原因</th></tr><tr><td>完善性维护</td><td>50%</td><td>用户提出新功能与性能改进需求</td></tr>
+<tr><td>适应性维护</td><td>25%</td><td>硬件/OS/数据库等运行环境变化</td></tr>
+<tr><td>改正性维护</td><td>21%</td><td>修复潜伏的逻辑/性能缺陷</td></tr>
+<tr><td>预防性维护</td><td>4%</td><td>为提升可维护性而主动重构</td></tr></table>
+
+
+<h2>1.5 常见软件过程模型对比</h2>
+
+
+
+<table><tr><th>模型</th><th>核心思想</th><th>优点</th><th>缺点</th><th>适用场景</th></tr><tr><td>瀑布模型</td><td>阶段顺序推进、文档驱动、里程碑评审</td><td>过程规范、便于管理与考核</td><td>需求变更代价高，反馈滞后</td><td>需求明确稳定的大型项目</td></tr>
+<tr><td>快速原型</td><td>快速构建可运行原型，迭代确认需求</td><td>大幅降低需求误解风险</td><td>原型质量差，易把原型当产品</td><td>需求不明确、用户界面重要的项目</td></tr>
+<tr><td>增量模型</td><td>系统分批交付可运行增量</td><td>早期交付核心价值、风险分散</td><td>体系结构需前瞻设计</td><td>人员不足或需分阶段交付</td></tr>
+<tr><td>螺旋模型</td><td>迭代 + 每轮风险分析（Boehm 提出）</td><td>风险驱动，适合大型高风险项目</td><td>成本高，依赖风险评估能力</td><td>航空航天、金融核心系统</td></tr>
+<tr><td>敏捷开发</td><td>拥抱变化、小步快跑、持续交付</td><td>响应需求变化快，客户参与度高</td><td>文档弱化，依赖团队素质</td><td>互联网产品、需求多变的项目</td></tr></table>
+
+
+<h2>1.6 案例分析</h2>
+<p>案例 1：某医院信息系统项目，合同额 800 万元，采用瀑布模型开发 18 个月。交付验收时发现挂号流程设计与医院实际"先分诊后挂号"的业务规则不符，需推翻重做需求与设计，返工成本超过初期开发成本的 40%。</p>
+<p>案例 2：某创业团队开发外卖 App，采用 2 周一个迭代的敏捷模式，每个迭代邀请真实商家试用并收集反馈。半年内完成 13 个迭代，产品功能与市场需求高度吻合，顺利获得 A 轮融资。</p>
+<ul><li>讨论 1：案例 1 如果改用快速原型模型，应在哪个环节引入原型？原型验证后的代码应如何处理（抛弃式 vs 演化式）？</li>
+<li>讨论 2：案例 2 的成功能否说明敏捷模型优于瀑布模型？请从项目规模、需求稳定性、团队构成三个维度分析。</li>
+<li>讨论 3：如果让你为"铁路 12306 售票系统"选择过程模型，你会选哪种？为什么？</li></ul>
+
+
+
+<h2>本章小结</h2>
+<p>本章是全书总纲：软件危机推动了软件工程的诞生；软件工程以方法、工具、过程三要素构建工程化开发体系；软件生命周期划分了从定义到维护的完整阶段；五种过程模型各有优劣与适用边界。核心思想是"没有银弹"（Brooks，1986）——不存在适用于所有项目的万能模型，必须根据项目规模、需求稳定性、团队能力与风险水平进行权衡选择。</p>
+<h2>课后练习</h2>
+<ol>
+<li>结合你参与过的课程设计项目，分析它更接近哪种过程模型？开发中遇到的最大困难与所选模型是否相关？</li>
+<li>为什么说"软件不会磨损，但会退化"？这一特性对软件维护策略有何启示？</li>
+<li>查阅资料写出敏捷宣言的 4 条核心价值观与 12 条原则中的任意 4 条，并谈谈你对"工作的软件高于详尽的文档"的理解。</li>
+<li>计算题：某项目使用增量模型分 3 批交付，每批工作量分别为 40%、35%、25%。若第 1 批交付后用户提出 10% 的需求变更，估算该变更对总工期的影响（假设变更只影响后续增量）。</li>
+<li>拓展：阅读 Brooks《人月神话》中"没有银弹"一章，用自己的话概括"本质困难"与"偶然困难"的区别（300 字以内）。</li>
+</ol></div>
+  <div class="ft">爱教学平台 · 课程配套教学资源 · 仅供教学演示使用</div>
+</div>
+</body>
+</html>
