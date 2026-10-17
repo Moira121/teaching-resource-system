@@ -3,46 +3,97 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>奈奎斯特与香农公式推导 — 爱教学平台</title>
+<title>奈奎斯特与香农公式推导 — 通信原理</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;line-height:1.7;color:#333;max-width:720px;margin:0 auto;padding:24px 16px;background:#f8fafc}
-header{border-left:4px solid #388e3c;padding-left:16px;margin-bottom:24px}
-h1{font-size:22px;color:#1a237e;margin-bottom:6px}
-.sub{color:#546e7a;font-size:14px}
-.badge{display:inline-block;padding:2px 10px;border-radius:4px;font-size:12px;font-weight:600;color:#fff;background:#388e3c;margin-left:8px;vertical-align:middle}
-.desc{background:#fff;border-radius:8px;padding:16px;margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.desc p{color:#455a64;font-size:14px}
-.outline{background:#fff;border-radius:8px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.outline h2{font-size:16px;color:#1a237e;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid #eceff1}
-.outline ul{list-style:none}
-.outline li{padding:10px 0;border-bottom:1px dashed #eceff1;font-size:14px;color:#37474f}
-.outline li:last-child{border-bottom:none}
-.outline li::before{content:"•";color:#388e3c;margin-right:8px;font-weight:700}
-footer{margin-top:28px;text-align:center;font-size:12px;color:#90a4ae}
-a{color:#388e3c}
+body{font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;line-height:1.8;color:#2c3e50;max-width:860px;margin:0 auto;padding:28px 20px;background:#f5f7fa}
+.page{background:#fff;border-radius:10px;box-shadow:0 2px 12px rgba(0,0,0,.08);overflow:hidden}
+.hd{background:linear-gradient(135deg,#1a237e,#3949ab);color:#fff;padding:26px 32px}
+.hd h1{font-size:22px;margin-bottom:8px}
+.hd .meta{font-size:13px;opacity:.85}
+.badge{display:inline-block;padding:2px 10px;border-radius:4px;font-size:12px;background:rgba(255,255,255,.2);margin-left:8px;vertical-align:middle}
+.bd{padding:26px 32px}
+h2{font-size:17px;color:#1a237e;margin:26px 0 10px;padding-left:10px;border-left:4px solid #3949ab}
+h2:first-child{margin-top:0}
+h3{font-size:15px;color:#283593;margin:16px 0 6px}
+p,li{font-size:14px;color:#37474f}
+ul,ol{padding-left:22px}
+li{margin:4px 0}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:13px}
+th{background:#e8eaf6;color:#1a237e;padding:8px 10px;text-align:left;border:1px solid #c5cae9}
+td{padding:7px 10px;border:1px solid #e0e0e0}
+tr:nth-child(even) td{background:#fafbfc}
+.note{background:#fff8e1;border:1px solid #ffe082;border-radius:6px;padding:10px 14px;font-size:13px;color:#6d4c00;margin:12px 0}
+.code{background:#263238;color:#eeffff;border-radius:6px;padding:12px 16px;font-family:Consolas,Menlo,monospace;font-size:13px;overflow-x:auto;margin:10px 0;white-space:pre}
+.formula{background:#e3f2fd;border-radius:6px;padding:12px 16px;text-align:center;font-size:16px;color:#0d47a1;margin:10px 0;font-family:"Cambria Math",Georgia,serif}
+.tag{display:inline-block;font-size:11px;padding:1px 8px;border-radius:10px;background:#e3f2fd;color:#1565c0;margin:0 4px}
+.case{border:1px solid #e0e0e0;border-radius:8px;padding:14px 18px;margin:12px 0;background:#fafbfc}
+.case h3{margin-top:0}
+.ft{padding:16px 32px;background:#fafbfc;border-top:1px solid #eceff1;font-size:12px;color:#90a4ae;text-align:center}
 </style>
 </head>
 <body>
-<header>
-<h1>奈奎斯特与香农公式推导<span class="badge">链接</span></h1>
-<div class="sub">所属课程：通信原理 &nbsp;|&nbsp; 资源编号：R012</div>
-</header>
-<section class="desc">
-<p>课外阅读材料</p>
-</section>
-<section class="outline">
-<h2>内容概要</h2>
-<ul>
-<li>相关章节延伸阅读</li>
-<li>学术文献推荐</li>
-<li>工程实践参考</li>
-<li>在线工具与数据集</li>
-<li>拓展思考题</li>
-</ul>
-</section>
-<footer>
-  爱教学平台 &middot; 演示资源
-</footer>
+<div class="page">
+  <div class="hd">
+    <h1>奈奎斯特与香农公式推导<span class="badge">链接</span></h1>
+    <div class="meta">课程：通信原理（CE101） &nbsp;|&nbsp; 2025-2026-1 &nbsp;|&nbsp; 资源编号：R012</div>
+  </div>
+  <div class="bd">
+<h2>一、奈奎斯特准则（无噪声信道）</h2>
+<p>1924 年奈奎斯特（Nyquist）推导出：在理想低通信道中，无码间串扰的最高码元传输速率受带宽限制。</p>
+
+<div class="case">
+<h3>奈奎斯特第一准则 <span class="tag">公式</span></h3>
+<p>若信道带宽为 B（Hz），则无码间串扰的最大码元速率为：</p>
+<ul><li>R_Bmax = 2B （码元/秒，波特）</li>
+<li>物理含义：理想低通信道每赫兹带宽每秒最多传输 2 个码元；</li>
+<li>若每个码元携带 M 进制信息（log₂M 比特），则最大信息速率 R_b = 2B·log₂M (bit/s)。</li></ul>
+</div>
+
+<div class="case">
+<h3>推导要点 <span class="tag">推导</span></h3>
+<p>从抽样定理与 sinc 函数的正交性出发：</p>
+<ul><li>理想低通信道的冲激响应为 h(t) = sinc(2Bt)，其在码元间隔 T = 1/(2B) 的整数倍处取值为零；</li>
+<li>以 R_B = 2B 的速率发送时，抽样时刻其他码元的响应均为零 → 无码间串扰；</li>
+<li>超过 2B 时抽样点不再正交，码间串扰不可避免。</li></ul>
+</div>
+
+<h2>二、香农公式（有噪声信道）</h2>
+<p>1948 年香农（Shannon）在《通信的数学理论》中给出了加性高斯白噪声（AWGN）信道的容量上限。</p>
+
+<div class="case">
+<h3>香农信道容量公式 <span class="tag">公式</span></h3>
+<p>带宽为 B、信噪比为 S/N 的连续信道，其信道容量为：</p>
+<ul><li>C = B·log₂(1 + S/N)  (bit/s)</li>
+<li>若用分贝表示信噪比：(S/N)dB = 10·lg(S/N)，注意计算时须先换算回功率比；</li>
+<li>当信噪比趋于无穷大，C 也趋于无穷；但带宽一定时，容量增长受 log 关系约束。</li></ul>
+</div>
+
+<div class="case">
+<h3>香农公式的意义与推论 <span class="tag">理解</span></h3>
+<p>香农公式给出了可靠通信的理论极限，是信道编码理论的基础：</p>
+<ul><li>只要信息速率 R &lt; C，总存在某种编码使误码率任意小；反之 R &gt; C 时不可能可靠传输；</li>
+<li>带宽与信噪比可以互换：带宽有限时可用提高信噪比弥补（卫星通信）；</li>
+<li>扩展形式：C = B·log₂(1 + S/(n₀B))，当 B→∞ 时 C→1.44·S/n₀（极限容量）。</li></ul>
+</div>
+
+<h2>三、典型例题</h2>
+<p>以下两道例题覆盖本材料核心考点，建议先独立求解再对照解析。</p>
+
+<div class="case">
+<h3>例题 1：无噪声信道 <span class="tag">计算</span></h3>
+<p>某理想低通信道带宽 3 kHz，采用 8 进制码元传输，求最大信息传输速率。</p>
+<ul><li>解：R_b = 2B·log₂M = 2×3000×log₂8 = 2×3000×3 = 18000 bit/s = 18 kbps。</li></ul>
+</div>
+
+<div class="case">
+<h3>例题 2：香农公式 <span class="tag">计算</span></h3>
+<p>电话信道带宽 3.4 kHz，信噪比 30 dB，求信道容量；若信噪比提高到 40 dB，容量增加多少？</p>
+<ul><li>30 dB → S/N = 10³ = 1000，C = 3400×log₂(1001) ≈ 3400×9.97 ≈ 33.9 kbps；</li>
+<li>40 dB → S/N = 10⁴，C = 3400×log₂(10001) ≈ 3400×13.29 ≈ 45.2 kbps；</li>
+<li>信噪比提高 10 dB，容量仅增加约 11.3 kbps，体现 log 增长的"边际递减"。</li></ul>
+</div></div>
+  <div class="ft">爱教学平台 · 课程配套教学资源 · 仅供教学演示使用</div>
+</div>
 </body>
 </html>

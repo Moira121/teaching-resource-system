@@ -3,46 +3,86 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>数据结构与算法-教学大纲.pdf — 爱教学平台</title>
+<title>数据结构与算法-教学大纲.pdf — 数据结构与算法</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;line-height:1.7;color:#333;max-width:720px;margin:0 auto;padding:24px 16px;background:#f8fafc}
-header{border-left:4px solid #1976d2;padding-left:16px;margin-bottom:24px}
-h1{font-size:22px;color:#1a237e;margin-bottom:6px}
-.sub{color:#546e7a;font-size:14px}
-.badge{display:inline-block;padding:2px 10px;border-radius:4px;font-size:12px;font-weight:600;color:#fff;background:#1976d2;margin-left:8px;vertical-align:middle}
-.desc{background:#fff;border-radius:8px;padding:16px;margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.desc p{color:#455a64;font-size:14px}
-.outline{background:#fff;border-radius:8px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.outline h2{font-size:16px;color:#1a237e;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid #eceff1}
-.outline ul{list-style:none}
-.outline li{padding:10px 0;border-bottom:1px dashed #eceff1;font-size:14px;color:#37474f}
-.outline li:last-child{border-bottom:none}
-.outline li::before{content:"•";color:#1976d2;margin-right:8px;font-weight:700}
-footer{margin-top:28px;text-align:center;font-size:12px;color:#90a4ae}
-a{color:#1976d2}
+body{font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;line-height:1.8;color:#2c3e50;max-width:860px;margin:0 auto;padding:28px 20px;background:#f5f7fa}
+.page{background:#fff;border-radius:10px;box-shadow:0 2px 12px rgba(0,0,0,.08);overflow:hidden}
+.hd{background:linear-gradient(135deg,#1a237e,#3949ab);color:#fff;padding:26px 32px}
+.hd h1{font-size:22px;margin-bottom:8px}
+.hd .meta{font-size:13px;opacity:.85}
+.badge{display:inline-block;padding:2px 10px;border-radius:4px;font-size:12px;background:rgba(255,255,255,.2);margin-left:8px;vertical-align:middle}
+.bd{padding:26px 32px}
+h2{font-size:17px;color:#1a237e;margin:26px 0 10px;padding-left:10px;border-left:4px solid #3949ab}
+h2:first-child{margin-top:0}
+h3{font-size:15px;color:#283593;margin:16px 0 6px}
+p,li{font-size:14px;color:#37474f}
+ul,ol{padding-left:22px}
+li{margin:4px 0}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:13px}
+th{background:#e8eaf6;color:#1a237e;padding:8px 10px;text-align:left;border:1px solid #c5cae9}
+td{padding:7px 10px;border:1px solid #e0e0e0}
+tr:nth-child(even) td{background:#fafbfc}
+.note{background:#fff8e1;border:1px solid #ffe082;border-radius:6px;padding:10px 14px;font-size:13px;color:#6d4c00;margin:12px 0}
+.code{background:#263238;color:#eeffff;border-radius:6px;padding:12px 16px;font-family:Consolas,Menlo,monospace;font-size:13px;overflow-x:auto;margin:10px 0;white-space:pre}
+.formula{background:#e3f2fd;border-radius:6px;padding:12px 16px;text-align:center;font-size:16px;color:#0d47a1;margin:10px 0;font-family:"Cambria Math",Georgia,serif}
+.tag{display:inline-block;font-size:11px;padding:1px 8px;border-radius:10px;background:#e3f2fd;color:#1565c0;margin:0 4px}
+.case{border:1px solid #e0e0e0;border-radius:8px;padding:14px 18px;margin:12px 0;background:#fafbfc}
+.case h3{margin-top:0}
+.ft{padding:16px 32px;background:#fafbfc;border-top:1px solid #eceff1;font-size:12px;color:#90a4ae;text-align:center}
 </style>
 </head>
 <body>
-<header>
-<h1>数据结构与算法-教学大纲.pdf<span class="badge">文档</span></h1>
-<div class="sub">所属课程：数据结构与算法 &nbsp;|&nbsp; 资源编号：R004</div>
-</header>
-<section class="desc">
-<p>本资源为课程配套教学资料，仅供教学使用。</p>
-</section>
-<section class="outline">
-<h2>内容概要</h2>
+<div class="page">
+  <div class="hd">
+    <h1>数据结构与算法-教学大纲.pdf<span class="badge">文档</span></h1>
+    <div class="meta">课程：数据结构与算法（SE201） &nbsp;|&nbsp; 2025-2026-1 &nbsp;|&nbsp; 资源编号：R004</div>
+  </div>
+  <div class="bd">
+<h2>一、课程基本信息</h2>
+<table>
+<tr><th style="width:130px">课程名称</th><td>数据结构与算法</td><th style="width:110px">学分 / 学时</th><td>4 学分 / 64 学时</td></tr>
+<tr><th>开课学期</th><td>2025-2026-1</td><th>课程类别</th><td>必修</td></tr>
+<tr><th>主讲教师</th><td>张明 教授</td><th>先修课程</th><td>C 语言程序设计、离散数学</td></tr>
+</table>
+
+<h2>二、课程目标</h2>
+<ol>
+<li>掌握线性表、栈、队列、树、图等基本数据结构的逻辑结构、存储结构与运算实现；</li>
+<li>熟练掌握排序与查找的经典算法，能进行时间/空间复杂度分析；</li>
+<li>能够根据实际问题选择合适的数据结构并设计高效算法；</li>
+<li>通过上机实践培养算法实现与调试能力。</li>
+</ol>
+
+<h2>三、教学内容与学时分配</h2>
+<table>
+<tr><th style="width:50px">章次</th><th>教学内容</th><th style="width:60px">学时</th><th>教学要点</th></tr>
+<tr><td>1</td><td>绪论</td><td>4</td><td>数据结构基本概念、算法复杂度分析、大 O 记号</td></tr>
+<tr><td>2</td><td>线性表</td><td>8</td><td>顺序表、单链表、双向链表、循环链表</td></tr>
+<tr><td>3</td><td>栈与队列</td><td>8</td><td>栈的应用（表达式求值、递归）、循环队列、链队列</td></tr>
+<tr><td>4</td><td>串、数组与广义表</td><td>4</td><td>KMP 模式匹配、稀疏矩阵压缩存储</td></tr>
+<tr><td>5</td><td>树与二叉树</td><td>10</td><td>遍历、线索二叉树、哈夫曼树、二叉搜索树</td></tr>
+<tr><td>6</td><td>图</td><td>10</td><td>邻接矩阵/邻接表、DFS/BFS、最小生成树、最短路径、拓扑排序</td></tr>
+<tr><td>7</td><td>查找</td><td>8</td><td>折半查找、B 树/B+ 树、散列表与冲突处理</td></tr>
+<tr><td>8</td><td>排序</td><td>8</td><td>插入、交换、选择、归并、基数排序及稳定性分析</td></tr>
+<tr><td>9</td><td>算法设计策略初步</td><td>4</td><td>分治、动态规划、贪心、回溯</td></tr>
+</table>
+
+<h2>四、考核方式</h2>
+<table>
+<tr><th>考核环节</th><th style="width:90px">占比</th><th>说明</th></tr>
+<tr><td>平时成绩</td><td>20%</td><td>课后习题 + 课堂测验（雨课堂）</td></tr>
+<tr><td>上机实验</td><td>30%</td><td>6 次实验，OJ 平台在线评测，含查重</td></tr>
+<tr><td>期末考试</td><td>50%</td><td>闭卷，算法设计与分析题占比不低于 50%</td></tr>
+</table>
+
+<h2>五、教材与参考资料</h2>
 <ul>
-<li>一、课程目标与毕业要求对应关系</li>
-<li>二、教学内容与学时分配</li>
-<li>三、考核方式与成绩构成</li>
-<li>四、教材与参考资料</li>
-<li>五、教学进度安排表</li>
-</ul>
-</section>
-<footer>
-  爱教学平台 &middot; 演示资源
-</footer>
+<li>《数据结构（C 语言版 第 2 版）》，严蔚敏、李冬梅，人民邮电出版社（主教材）</li>
+<li>《算法导论（原书第 3 版）》，Cormen 等，机械工业出版社（参考）</li>
+<li>《大话数据结构》，程杰，清华大学出版社（入门拓展）</li>
+</ul></div>
+  <div class="ft">爱教学平台 · 课程配套教学资源 · 仅供教学演示使用</div>
+</div>
 </body>
 </html>

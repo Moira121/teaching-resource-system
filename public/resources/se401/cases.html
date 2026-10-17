@@ -3,46 +3,89 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>软件项目管理-案例库 — 爱教学平台</title>
+<title>软件项目管理-案例库 — 软件项目管理</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;line-height:1.7;color:#333;max-width:720px;margin:0 auto;padding:24px 16px;background:#f8fafc}
-header{border-left:4px solid #388e3c;padding-left:16px;margin-bottom:24px}
-h1{font-size:22px;color:#1a237e;margin-bottom:6px}
-.sub{color:#546e7a;font-size:14px}
-.badge{display:inline-block;padding:2px 10px;border-radius:4px;font-size:12px;font-weight:600;color:#fff;background:#388e3c;margin-left:8px;vertical-align:middle}
-.desc{background:#fff;border-radius:8px;padding:16px;margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.desc p{color:#455a64;font-size:14px}
-.outline{background:#fff;border-radius:8px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.outline h2{font-size:16px;color:#1a237e;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid #eceff1}
-.outline ul{list-style:none}
-.outline li{padding:10px 0;border-bottom:1px dashed #eceff1;font-size:14px;color:#37474f}
-.outline li:last-child{border-bottom:none}
-.outline li::before{content:"•";color:#388e3c;margin-right:8px;font-weight:700}
-footer{margin-top:28px;text-align:center;font-size:12px;color:#90a4ae}
-a{color:#388e3c}
+body{font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;line-height:1.8;color:#2c3e50;max-width:860px;margin:0 auto;padding:28px 20px;background:#f5f7fa}
+.page{background:#fff;border-radius:10px;box-shadow:0 2px 12px rgba(0,0,0,.08);overflow:hidden}
+.hd{background:linear-gradient(135deg,#1a237e,#3949ab);color:#fff;padding:26px 32px}
+.hd h1{font-size:22px;margin-bottom:8px}
+.hd .meta{font-size:13px;opacity:.85}
+.badge{display:inline-block;padding:2px 10px;border-radius:4px;font-size:12px;background:rgba(255,255,255,.2);margin-left:8px;vertical-align:middle}
+.bd{padding:26px 32px}
+h2{font-size:17px;color:#1a237e;margin:26px 0 10px;padding-left:10px;border-left:4px solid #3949ab}
+h2:first-child{margin-top:0}
+h3{font-size:15px;color:#283593;margin:16px 0 6px}
+p,li{font-size:14px;color:#37474f}
+ul,ol{padding-left:22px}
+li{margin:4px 0}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:13px}
+th{background:#e8eaf6;color:#1a237e;padding:8px 10px;text-align:left;border:1px solid #c5cae9}
+td{padding:7px 10px;border:1px solid #e0e0e0}
+tr:nth-child(even) td{background:#fafbfc}
+.note{background:#fff8e1;border:1px solid #ffe082;border-radius:6px;padding:10px 14px;font-size:13px;color:#6d4c00;margin:12px 0}
+.code{background:#263238;color:#eeffff;border-radius:6px;padding:12px 16px;font-family:Consolas,Menlo,monospace;font-size:13px;overflow-x:auto;margin:10px 0;white-space:pre}
+.formula{background:#e3f2fd;border-radius:6px;padding:12px 16px;text-align:center;font-size:16px;color:#0d47a1;margin:10px 0;font-family:"Cambria Math",Georgia,serif}
+.tag{display:inline-block;font-size:11px;padding:1px 8px;border-radius:10px;background:#e3f2fd;color:#1565c0;margin:0 4px}
+.case{border:1px solid #e0e0e0;border-radius:8px;padding:14px 18px;margin:12px 0;background:#fafbfc}
+.case h3{margin-top:0}
+.ft{padding:16px 32px;background:#fafbfc;border-top:1px solid #eceff1;font-size:12px;color:#90a4ae;text-align:center}
 </style>
 </head>
 <body>
-<header>
-<h1>软件项目管理-案例库<span class="badge">链接</span></h1>
-<div class="sub">所属课程：软件项目管理 &nbsp;|&nbsp; 资源编号：R014</div>
-</header>
-<section class="desc">
-<p>典型项目管理案例分析</p>
-</section>
-<section class="outline">
-<h2>内容概要</h2>
-<ul>
-<li>相关章节延伸阅读</li>
-<li>学术文献推荐</li>
-<li>工程实践参考</li>
-<li>在线工具与数据集</li>
-<li>拓展思考题</li>
-</ul>
-</section>
-<footer>
-  爱教学平台 &middot; 演示资源
-</footer>
+<div class="page">
+  <div class="hd">
+    <h1>软件项目管理-案例库<span class="badge">链接</span></h1>
+    <div class="meta">课程：软件项目管理（SE401） &nbsp;|&nbsp; 2025-2026-2 &nbsp;|&nbsp; 资源编号：R014</div>
+  </div>
+  <div class="bd">
+<h2>一、进度与范围管理案例</h2>
+<p>以下案例用于第 5 章"项目进度管理"与第 6 章"范围管理"的课堂研讨。</p>
+
+<div class="case">
+<h3>案例 A：电商平台"双 11"版本延期 <span class="tag">进度管理</span></h3>
+<p>某电商平台计划在双 11 前上线促销系统新版本。开发中途运营部门三次追加需求（秒杀玩法、直播入口、会员券叠加），项目经理未走变更流程直接安排开发，最终版本延期 3 周，错过预热期。</p>
+<ul><li>研讨问题 1：范围蔓延（Scope Creep）在本案例中是如何发生的？</li>
+<li>研讨问题 2：变更控制委员会（CCB）应如何介入？</li>
+<li>研讨问题 3：若必须响应新需求，应采取什么进度压缩技术（赶工/快速跟进）？代价分别是什么？</li></ul>
+</div>
+
+<div class="case">
+<h3>案例 B：关键路径误判导致资源浪费 <span class="tag">进度管理</span></h3>
+<p>某项目组绘制网络图时将"接口联调"与"性能调优"画成并行活动，实际两者共享同一测试环境，存在资源依赖。项目中期才发现关键路径比计划长 10 天。</p>
+<ul><li>研讨问题 1：资源依赖关系（资源平衡）如何在网络图中体现？</li>
+<li>研讨问题 2：使用关键链法（CCM）应如何设置缓冲？</li></ul>
+</div>
+
+<h2>二、风险与质量管理案例</h2>
+<p>以下案例用于第 8 章"风险管理"与第 9 章"质量管理"。</p>
+
+<div class="case">
+<h3>案例 C：核心开发离职引发的项目危机 <span class="tag">风险管理</span></h3>
+<p>某 20 人项目组的支付模块由 1 名高级工程师独立负责，未做知识共享。项目联调前该工程师突然离职，模块无人接手，项目被迫延期 1 个月。</p>
+<ul><li>研讨问题 1：该风险应在风险登记册中如何定性（概率/影响）？</li>
+<li>研讨问题 2：可行的应对策略有哪些（规避/转移/减轻/接受）？结对编程属于哪种？</li>
+<li>研讨问题 3："大巴系数"（Bus Factor）如何度量与改进？</li></ul>
+</div>
+
+<div class="case">
+<h3>案例 D：千行代码缺陷率之争 <span class="tag">质量管理</span></h3>
+<p>两个团队交付同一系统不同模块：A 团队缺陷率 0.8/KLOC 但评审投入大、进度滞后；B 团队缺陷率 2.3/KLOC 但提前交付。管理层就是否推广 A 团队的评审流程产生分歧。</p>
+<ul><li>研讨问题 1：质量成本（预防/评估/失败成本）如何权衡？</li>
+<li>研讨问题 2：缺陷密度是否是唯一的质量度量？还应引入哪些指标？</li></ul>
+</div>
+
+<h2>三、敏捷实践案例</h2>
+<p>以下案例用于第 12 章"敏捷项目管理"，建议结合课程实践环节讨论。</p>
+
+<div class="case">
+<h3>案例 E：Scrum 落地水土不服 <span class="tag">敏捷实践</span></h3>
+<p>某公司引入 Scrum，但站会变成汇报会、迭代评审会流于形式、需求在迭代中被频繁插入。三个迭代后团队士气低落，认为"敏捷不如瀑布"。</p>
+<ul><li>研讨问题 1：案例中的 Scrum 实践分别违背了哪些敏捷原则？</li>
+<li>研讨问题 2：产品负责人（PO）的缺席会带来什么后果？</li>
+<li>研讨问题 3：敏捷转型需要哪些组织层面的配套条件？</li></ul>
+</div></div>
+  <div class="ft">爱教学平台 · 课程配套教学资源 · 仅供教学演示使用</div>
+</div>
 </body>
 </html>

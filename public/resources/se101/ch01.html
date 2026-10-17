@@ -3,46 +3,98 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>第1章 软件工程概述（课件） — 爱教学平台</title>
+<title>第1章 软件工程概述（课件） — 软件工程导论</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;line-height:1.7;color:#333;max-width:720px;margin:0 auto;padding:24px 16px;background:#f8fafc}
-header{border-left:4px solid #7b1fa2;padding-left:16px;margin-bottom:24px}
-h1{font-size:22px;color:#1a237e;margin-bottom:6px}
-.sub{color:#546e7a;font-size:14px}
-.badge{display:inline-block;padding:2px 10px;border-radius:4px;font-size:12px;font-weight:600;color:#fff;background:#7b1fa2;margin-left:8px;vertical-align:middle}
-.desc{background:#fff;border-radius:8px;padding:16px;margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.desc p{color:#455a64;font-size:14px}
-.outline{background:#fff;border-radius:8px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.outline h2{font-size:16px;color:#1a237e;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid #eceff1}
-.outline ul{list-style:none}
-.outline li{padding:10px 0;border-bottom:1px dashed #eceff1;font-size:14px;color:#37474f}
-.outline li:last-child{border-bottom:none}
-.outline li::before{content:"•";color:#7b1fa2;margin-right:8px;font-weight:700}
-footer{margin-top:28px;text-align:center;font-size:12px;color:#90a4ae}
-a{color:#7b1fa2}
+body{font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;line-height:1.8;color:#2c3e50;max-width:860px;margin:0 auto;padding:28px 20px;background:#f5f7fa}
+.page{background:#fff;border-radius:10px;box-shadow:0 2px 12px rgba(0,0,0,.08);overflow:hidden}
+.hd{background:linear-gradient(135deg,#1a237e,#3949ab);color:#fff;padding:26px 32px}
+.hd h1{font-size:22px;margin-bottom:8px}
+.hd .meta{font-size:13px;opacity:.85}
+.badge{display:inline-block;padding:2px 10px;border-radius:4px;font-size:12px;background:rgba(255,255,255,.2);margin-left:8px;vertical-align:middle}
+.bd{padding:26px 32px}
+h2{font-size:17px;color:#1a237e;margin:26px 0 10px;padding-left:10px;border-left:4px solid #3949ab}
+h2:first-child{margin-top:0}
+h3{font-size:15px;color:#283593;margin:16px 0 6px}
+p,li{font-size:14px;color:#37474f}
+ul,ol{padding-left:22px}
+li{margin:4px 0}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:13px}
+th{background:#e8eaf6;color:#1a237e;padding:8px 10px;text-align:left;border:1px solid #c5cae9}
+td{padding:7px 10px;border:1px solid #e0e0e0}
+tr:nth-child(even) td{background:#fafbfc}
+.note{background:#fff8e1;border:1px solid #ffe082;border-radius:6px;padding:10px 14px;font-size:13px;color:#6d4c00;margin:12px 0}
+.code{background:#263238;color:#eeffff;border-radius:6px;padding:12px 16px;font-family:Consolas,Menlo,monospace;font-size:13px;overflow-x:auto;margin:10px 0;white-space:pre}
+.formula{background:#e3f2fd;border-radius:6px;padding:12px 16px;text-align:center;font-size:16px;color:#0d47a1;margin:10px 0;font-family:"Cambria Math",Georgia,serif}
+.tag{display:inline-block;font-size:11px;padding:1px 8px;border-radius:10px;background:#e3f2fd;color:#1565c0;margin:0 4px}
+.case{border:1px solid #e0e0e0;border-radius:8px;padding:14px 18px;margin:12px 0;background:#fafbfc}
+.case h3{margin-top:0}
+.ft{padding:16px 32px;background:#fafbfc;border-top:1px solid #eceff1;font-size:12px;color:#90a4ae;text-align:center}
 </style>
 </head>
 <body>
-<header>
-<h1>第1章 软件工程概述（课件）<span class="badge">课件</span></h1>
-<div class="sub">所属课程：软件工程导论 &nbsp;|&nbsp; 资源编号：R002</div>
-</header>
-<section class="desc">
-<p>本资源为课程配套教学资料，仅供教学使用。</p>
-</section>
-<section class="outline">
-<h2>内容概要</h2>
-<ul>
-<li>1. 知识目标与学习要点</li>
-<li>2. 核心概念详解</li>
-<li>3. 例题解析与课堂练习</li>
-<li>4. 课后思考题</li>
-<li>5. 延伸阅读推荐</li>
-</ul>
-</section>
-<footer>
-  爱教学平台 &middot; 演示资源
-</footer>
+<div class="page">
+  <div class="hd">
+    <h1>第1章 软件工程概述（课件）<span class="badge">课件</span></h1>
+    <div class="meta">课程：软件工程导论（SE101） &nbsp;|&nbsp; 2025-2026-1 &nbsp;|&nbsp; 资源编号：R002</div>
+  </div>
+  <div class="bd">
+<h2>1.1 软件与软件危机</h2>
+<p>软件是计算机系统中与硬件相互依存的另一部分，包括程序、数据及其相关文档的完整集合。与硬件不同，软件是逻辑实体，具有抽象性、不可见性和不会"磨损"的特点。</p>
+<p>1968 年北大西洋公约组织（NATO）会议上首次提出"软件危机"一词，指软件开发与维护过程中遇到的一系列严重问题。</p>
+<ul><li>软件危机的典型表现：开发成本与进度难以准确估算；</li>
+<li>交付的软件产品常常不能满足用户需求；</li>
+<li>软件质量不可靠，缺陷频发；</li>
+<li>软件可维护性差，"改一处、坏三处"；</li>
+<li>缺乏规范的文档，给维护带来极大困难。</li></ul>
+
+
+
+
+<h2>1.2 软件工程的定义</h2>
+<p>Fritz Bauer 的经典定义：软件工程是为了经济地获得能够在实际机器上有效运行的可靠软件而建立和使用的一系列完善的工程化原则。</p>
+<p>IEEE 定义：软件工程是将系统化的、严格约束的、可量化的方法应用于软件的开发、运行和维护，即将工程化应用于软件。</p>
+
+
+
+<div class="note">记忆要点：软件工程三要素 = 方法 + 工具 + 过程。</div>
+
+<h2>1.3 软件生命周期</h2>
+<p>软件生命周期模型回答的问题是："按什么样的顺序组织这些活动，才能高效、可控地交付软件？"</p>
+<ul><li>软件定义期：问题定义 → 可行性研究 → 需求分析；</li>
+<li>软件开发期：总体设计 → 详细设计 → 编码 → 测试；</li>
+<li>软件维护期：改正性维护、适应性维护、完善性维护、预防性维护。</li></ul>
+
+
+
+
+<h2>1.4 常见软件过程模型对比</h2>
+
+
+
+<table><tr><th>模型</th><th>核心思想</th><th>优点</th><th>缺点</th><th>适用场景</th></tr><tr><td>瀑布模型</td><td>阶段顺序推进、文档驱动</td><td>过程规范、便于管理</td><td>需求变更代价高</td><td>需求明确稳定的项目</td></tr>
+<tr><td>快速原型</td><td>快速构建原型迭代确认需求</td><td>降低需求误解风险</td><td>原型质量差易遗留</td><td>需求不明确的项目</td></tr>
+<tr><td>增量模型</td><td>分批交付可运行增量</td><td>早期交付、风险分散</td><td>架构需前瞻设计</td><td>可分阶段交付的系统</td></tr>
+<tr><td>螺旋模型</td><td>迭代 + 风险分析</td><td>风险可控</td><td>成本高、依赖风险评估能力</td><td>大型高风险项目</td></tr>
+<tr><td>敏捷开发</td><td>拥抱变化、持续交付</td><td>响应需求变化快</td><td>文档弱化、依赖团队素质</td><td>互联网产品、需求多变</td></tr></table>
+
+
+<h2>1.5 案例分析</h2>
+<p>案例：某医院信息系统项目，采用瀑布模型开发 18 个月，交付时发现挂号流程与实际业务不符，返工成本超过初期开发成本的 40%。</p>
+<p>讨论：如果改用快速原型模型，应在哪个环节引入原型？原型验证后如何处理原型代码？</p>
+
+
+
+
+<h2>本章小结</h2>
+<p>本章介绍了软件危机的表现与成因、软件工程的定义与三要素（方法、工具、过程），以及五种典型软件过程模型的优缺点与适用场景。理解"没有银弹"——不存在适用于所有项目的万能模型，应根据项目特点选择合适的过程模型。</p>
+<h2>课后练习</h2>
+<ol>
+<li>结合你参与过的课程项目，分析它更接近哪种过程模型？存在什么问题？</li>
+<li>为什么说"软件不会磨损，但会退化"？</li>
+<li>查阅资料，说明敏捷宣言的 4 条核心价值观，并谈谈你对"工作的软件高于详尽的文档"的理解。</li>
+</ol></div>
+  <div class="ft">爱教学平台 · 课程配套教学资源 · 仅供教学演示使用</div>
+</div>
 </body>
 </html>

@@ -3,46 +3,85 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>通信原理-教学大纲.pdf — 爱教学平台</title>
+<title>通信原理-教学大纲.pdf — 通信原理</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;line-height:1.7;color:#333;max-width:720px;margin:0 auto;padding:24px 16px;background:#f8fafc}
-header{border-left:4px solid #1976d2;padding-left:16px;margin-bottom:24px}
-h1{font-size:22px;color:#1a237e;margin-bottom:6px}
-.sub{color:#546e7a;font-size:14px}
-.badge{display:inline-block;padding:2px 10px;border-radius:4px;font-size:12px;font-weight:600;color:#fff;background:#1976d2;margin-left:8px;vertical-align:middle}
-.desc{background:#fff;border-radius:8px;padding:16px;margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.desc p{color:#455a64;font-size:14px}
-.outline{background:#fff;border-radius:8px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.outline h2{font-size:16px;color:#1a237e;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid #eceff1}
-.outline ul{list-style:none}
-.outline li{padding:10px 0;border-bottom:1px dashed #eceff1;font-size:14px;color:#37474f}
-.outline li:last-child{border-bottom:none}
-.outline li::before{content:"•";color:#1976d2;margin-right:8px;font-weight:700}
-footer{margin-top:28px;text-align:center;font-size:12px;color:#90a4ae}
-a{color:#1976d2}
+body{font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;line-height:1.8;color:#2c3e50;max-width:860px;margin:0 auto;padding:28px 20px;background:#f5f7fa}
+.page{background:#fff;border-radius:10px;box-shadow:0 2px 12px rgba(0,0,0,.08);overflow:hidden}
+.hd{background:linear-gradient(135deg,#1a237e,#3949ab);color:#fff;padding:26px 32px}
+.hd h1{font-size:22px;margin-bottom:8px}
+.hd .meta{font-size:13px;opacity:.85}
+.badge{display:inline-block;padding:2px 10px;border-radius:4px;font-size:12px;background:rgba(255,255,255,.2);margin-left:8px;vertical-align:middle}
+.bd{padding:26px 32px}
+h2{font-size:17px;color:#1a237e;margin:26px 0 10px;padding-left:10px;border-left:4px solid #3949ab}
+h2:first-child{margin-top:0}
+h3{font-size:15px;color:#283593;margin:16px 0 6px}
+p,li{font-size:14px;color:#37474f}
+ul,ol{padding-left:22px}
+li{margin:4px 0}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:13px}
+th{background:#e8eaf6;color:#1a237e;padding:8px 10px;text-align:left;border:1px solid #c5cae9}
+td{padding:7px 10px;border:1px solid #e0e0e0}
+tr:nth-child(even) td{background:#fafbfc}
+.note{background:#fff8e1;border:1px solid #ffe082;border-radius:6px;padding:10px 14px;font-size:13px;color:#6d4c00;margin:12px 0}
+.code{background:#263238;color:#eeffff;border-radius:6px;padding:12px 16px;font-family:Consolas,Menlo,monospace;font-size:13px;overflow-x:auto;margin:10px 0;white-space:pre}
+.formula{background:#e3f2fd;border-radius:6px;padding:12px 16px;text-align:center;font-size:16px;color:#0d47a1;margin:10px 0;font-family:"Cambria Math",Georgia,serif}
+.tag{display:inline-block;font-size:11px;padding:1px 8px;border-radius:10px;background:#e3f2fd;color:#1565c0;margin:0 4px}
+.case{border:1px solid #e0e0e0;border-radius:8px;padding:14px 18px;margin:12px 0;background:#fafbfc}
+.case h3{margin-top:0}
+.ft{padding:16px 32px;background:#fafbfc;border-top:1px solid #eceff1;font-size:12px;color:#90a4ae;text-align:center}
 </style>
 </head>
 <body>
-<header>
-<h1>通信原理-教学大纲.pdf<span class="badge">文档</span></h1>
-<div class="sub">所属课程：通信原理 &nbsp;|&nbsp; 资源编号：R011</div>
-</header>
-<section class="desc">
-<p>本资源为课程配套教学资料，仅供教学使用。</p>
-</section>
-<section class="outline">
-<h2>内容概要</h2>
+<div class="page">
+  <div class="hd">
+    <h1>通信原理-教学大纲.pdf<span class="badge">文档</span></h1>
+    <div class="meta">课程：通信原理（CE101） &nbsp;|&nbsp; 2025-2026-1 &nbsp;|&nbsp; 资源编号：R011</div>
+  </div>
+  <div class="bd">
+<h2>一、课程基本信息</h2>
+<table>
+<tr><th style="width:130px">课程名称</th><td>通信原理</td><th style="width:110px">学分 / 学时</th><td>4 学分 / 64 学时</td></tr>
+<tr><th>开课学期</th><td>2025-2026-1</td><th>课程类别</th><td>必修</td></tr>
+<tr><th>主讲教师</th><td>王芳 教授</td><th>先修课程</th><td>高等数学、概率论与随机过程、信号与系统</td></tr>
+</table>
+
+<h2>二、课程目标</h2>
+<ol>
+<li>掌握通信系统的组成、分类与主要性能指标；</li>
+<li>理解模拟调制与数字调制的原理，能分析抗噪声性能；</li>
+<li>掌握数字基带传输与频带传输的基本理论与方法；</li>
+<li>理解信道容量定理与差错控制编码的基本原理。</li>
+</ol>
+
+<h2>三、教学内容与学时分配</h2>
+<table>
+<tr><th style="width:50px">章次</th><th>教学内容</th><th style="width:60px">学时</th><th>教学要点</th></tr>
+<tr><td>1</td><td>绪论</td><td>4</td><td>通信系统模型、信息量与熵、有效性与可靠性指标</td></tr>
+<tr><td>2</td><td>随机信号分析</td><td>6</td><td>平稳随机过程、高斯过程、窄带随机过程</td></tr>
+<tr><td>3</td><td>信道</td><td>4</td><td>恒参/随参信道、香农公式</td></tr>
+<tr><td>4</td><td>模拟调制系统</td><td>10</td><td>AM/DSB/SSB/FM 调制解调与抗噪声性能</td></tr>
+<tr><td>5</td><td>数字基带传输</td><td>10</td><td>码型、码间串扰、奈奎斯特准则、眼图</td></tr>
+<tr><td>6</td><td>数字频带传输</td><td>10</td><td>ASK/FSK/PSK/QPSK 调制解调</td></tr>
+<tr><td>7</td><td>模拟信号的数字传输</td><td>8</td><td>抽样定理、PCM、增量调制</td></tr>
+<tr><td>8</td><td>差错控制编码</td><td>8</td><td>线性分组码、循环码、卷积码简介</td></tr>
+<tr><td>9</td><td>同步原理</td><td>4</td><td>载波同步、位同步、帧同步</td></tr>
+</table>
+
+<h2>四、考核方式</h2>
+<table>
+<tr><th>考核环节</th><th style="width:90px">占比</th><th>说明</th></tr>
+<tr><td>平时成绩</td><td>25%</td><td>作业 6 次 + 章节测验</td></tr>
+<tr><td>实验</td><td>15%</td><td>SystemView/MATLAB 仿真实验 3 次</td></tr>
+<tr><td>期末考试</td><td>60%</td><td>闭卷，计算题占 50% 以上</td></tr>
+</table>
+
+<h2>五、教材与参考资料</h2>
 <ul>
-<li>一、课程目标与毕业要求对应关系</li>
-<li>二、教学内容与学时分配</li>
-<li>三、考核方式与成绩构成</li>
-<li>四、教材与参考资料</li>
-<li>五、教学进度安排表</li>
-</ul>
-</section>
-<footer>
-  爱教学平台 &middot; 演示资源
-</footer>
+<li>《通信原理（第 7 版）》，樊昌信、曹丽娜，国防工业出版社（主教材）</li>
+<li>《Digital Communications (5th Edition)》，Proakis（参考）</li>
+</ul></div>
+  <div class="ft">爱教学平台 · 课程配套教学资源 · 仅供教学演示使用</div>
+</div>
 </body>
 </html>

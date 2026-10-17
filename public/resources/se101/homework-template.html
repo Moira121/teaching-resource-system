@@ -3,46 +3,70 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>需求分析作业模板 — 爱教学平台</title>
+<title>需求分析作业模板 — 软件工程导论</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;line-height:1.7;color:#333;max-width:720px;margin:0 auto;padding:24px 16px;background:#f8fafc}
-header{border-left:4px solid #f57c00;padding-left:16px;margin-bottom:24px}
-h1{font-size:22px;color:#1a237e;margin-bottom:6px}
-.sub{color:#546e7a;font-size:14px}
-.badge{display:inline-block;padding:2px 10px;border-radius:4px;font-size:12px;font-weight:600;color:#fff;background:#f57c00;margin-left:8px;vertical-align:middle}
-.desc{background:#fff;border-radius:8px;padding:16px;margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.desc p{color:#455a64;font-size:14px}
-.outline{background:#fff;border-radius:8px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.outline h2{font-size:16px;color:#1a237e;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid #eceff1}
-.outline ul{list-style:none}
-.outline li{padding:10px 0;border-bottom:1px dashed #eceff1;font-size:14px;color:#37474f}
-.outline li:last-child{border-bottom:none}
-.outline li::before{content:"•";color:#f57c00;margin-right:8px;font-weight:700}
-footer{margin-top:28px;text-align:center;font-size:12px;color:#90a4ae}
-a{color:#f57c00}
+body{font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;line-height:1.8;color:#2c3e50;max-width:860px;margin:0 auto;padding:28px 20px;background:#f5f7fa}
+.page{background:#fff;border-radius:10px;box-shadow:0 2px 12px rgba(0,0,0,.08);overflow:hidden}
+.hd{background:linear-gradient(135deg,#1a237e,#3949ab);color:#fff;padding:26px 32px}
+.hd h1{font-size:22px;margin-bottom:8px}
+.hd .meta{font-size:13px;opacity:.85}
+.badge{display:inline-block;padding:2px 10px;border-radius:4px;font-size:12px;background:rgba(255,255,255,.2);margin-left:8px;vertical-align:middle}
+.bd{padding:26px 32px}
+h2{font-size:17px;color:#1a237e;margin:26px 0 10px;padding-left:10px;border-left:4px solid #3949ab}
+h2:first-child{margin-top:0}
+h3{font-size:15px;color:#283593;margin:16px 0 6px}
+p,li{font-size:14px;color:#37474f}
+ul,ol{padding-left:22px}
+li{margin:4px 0}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:13px}
+th{background:#e8eaf6;color:#1a237e;padding:8px 10px;text-align:left;border:1px solid #c5cae9}
+td{padding:7px 10px;border:1px solid #e0e0e0}
+tr:nth-child(even) td{background:#fafbfc}
+.note{background:#fff8e1;border:1px solid #ffe082;border-radius:6px;padding:10px 14px;font-size:13px;color:#6d4c00;margin:12px 0}
+.code{background:#263238;color:#eeffff;border-radius:6px;padding:12px 16px;font-family:Consolas,Menlo,monospace;font-size:13px;overflow-x:auto;margin:10px 0;white-space:pre}
+.formula{background:#e3f2fd;border-radius:6px;padding:12px 16px;text-align:center;font-size:16px;color:#0d47a1;margin:10px 0;font-family:"Cambria Math",Georgia,serif}
+.tag{display:inline-block;font-size:11px;padding:1px 8px;border-radius:10px;background:#e3f2fd;color:#1565c0;margin:0 4px}
+.case{border:1px solid #e0e0e0;border-radius:8px;padding:14px 18px;margin:12px 0;background:#fafbfc}
+.case h3{margin-top:0}
+.ft{padding:16px 32px;background:#fafbfc;border-top:1px solid #eceff1;font-size:12px;color:#90a4ae;text-align:center}
 </style>
 </head>
 <body>
-<header>
-<h1>需求分析作业模板<span class="badge">作业</span></h1>
-<div class="sub">所属课程：软件工程导论 &nbsp;|&nbsp; 资源编号：R003</div>
-</header>
-<section class="desc">
-<p>第一次大作业使用</p>
-</section>
-<section class="outline">
-<h2>内容概要</h2>
-<ul>
-<li>一、作业背景与任务说明</li>
-<li>二、提交内容与格式要求</li>
-<li>三、评分标准与扣分细则</li>
-<li>四、参考示例与注意事项</li>
-<li>五、提交截止时间</li>
-</ul>
-</section>
-<footer>
-  爱教学平台 &middot; 演示资源
-</footer>
+<div class="page">
+  <div class="hd">
+    <h1>需求分析作业模板<span class="badge">作业</span></h1>
+    <div class="meta">课程：软件工程导论（SE101） &nbsp;|&nbsp; 2025-2026-1 &nbsp;|&nbsp; 资源编号：R003</div>
+  </div>
+  <div class="bd">
+<h2>一、作业背景</h2>
+<p>假设你是"校园二手书交易平台"项目的需求分析师。该平台面向全校师生，支持发布求购/出售信息、在线沟通、线下交易评价。请运用第 3 章所学的结构化需求分析方法，完成该平台的需求规格说明书。</p>
+<h2>二、任务要求</h2>
+<ol>
+<li>进行需求获取：拟定访谈提纲（至少 8 个问题），并模拟整理 2 份访谈记录；</li>
+<li>绘制系统上下文图（顶层 DFD）与 1 层数据流图，加工数量控制在 5~7 个；</li>
+<li>建立数据字典：至少定义 6 个数据流、3 个数据存储、2 个加工的逻辑说明（结构化语言或判定表）；</li>
+<li>编写需求规格说明书（SRS），包含功能需求、性能需求、接口需求与约束条件；</li>
+<li>用例补充：选择 3 个核心功能，给出基本流与至少 2 个备选流的用例描述。</li>
+</ol>
+<h2>三、提交内容与格式</h2>
+<table>
+<tr><th>提交物</th><th>格式要求</th><th>命名规范</th></tr>
+<tr><td>需求规格说明书</td><td>PDF，按模板章节编排，15 页以内</td><td>SRS-学号-姓名.pdf</td></tr>
+<tr><td>DFD 图源文件</td><td>drawio / Visio / StarUML 源文件</td><td>DFD-学号-姓名.压缩包</td></tr>
+<tr><td>访谈记录</td><td>Word，附在 SRS 附录 A</td><td>与 SRS 合并提交</td></tr>
+</table>
+<h2>四、评分标准</h2>
+<table>
+<tr><th>评分项</th><th style="width:80px">分值</th><th>评分说明</th></tr>
+<tr><td>DFD 正确性与平衡</td><td>30 分</td><td>父子图平衡、数据流守恒、加工编号规范</td></tr>
+<tr><td>数据字典完整性</td><td>20 分</td><td>定义格式规范，覆盖 DFD 中全部数据流与存储</td></tr>
+<tr><td>SRS 文档质量</td><td>25 分</td><td>结构完整、需求可验证、无二义性表述</td></tr>
+<tr><td>用例描述</td><td>15 分</td><td>基本流/备选流划分合理，前置/后置条件清晰</td></tr>
+<tr><td>排版与规范</td><td>10 分</td><td>图表编号、术语统一、参考文献规范</td></tr>
+</table>
+<div class="note">⏰ 截止时间：第 6 周周五 23:59（教学平台提交）。逾期提交每天扣 10 分，超过一周不予接收。学术诚信红线：严禁抄袭，一经发现本次作业记 0 分并按学院规定处理。</div></div>
+  <div class="ft">爱教学平台 · 课程配套教学资源 · 仅供教学演示使用</div>
+</div>
 </body>
 </html>

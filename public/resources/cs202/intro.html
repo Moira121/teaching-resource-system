@@ -3,46 +3,83 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Python 入门微课视频 — 爱教学平台</title>
+<title>Python 入门微课视频 — Python程序设计</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;line-height:1.7;color:#333;max-width:720px;margin:0 auto;padding:24px 16px;background:#f8fafc}
-header{border-left:4px solid #d81b60;padding-left:16px;margin-bottom:24px}
-h1{font-size:22px;color:#1a237e;margin-bottom:6px}
-.sub{color:#546e7a;font-size:14px}
-.badge{display:inline-block;padding:2px 10px;border-radius:4px;font-size:12px;font-weight:600;color:#fff;background:#d81b60;margin-left:8px;vertical-align:middle}
-.desc{background:#fff;border-radius:8px;padding:16px;margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.desc p{color:#455a64;font-size:14px}
-.outline{background:#fff;border-radius:8px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.outline h2{font-size:16px;color:#1a237e;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid #eceff1}
-.outline ul{list-style:none}
-.outline li{padding:10px 0;border-bottom:1px dashed #eceff1;font-size:14px;color:#37474f}
-.outline li:last-child{border-bottom:none}
-.outline li::before{content:"•";color:#d81b60;margin-right:8px;font-weight:700}
-footer{margin-top:28px;text-align:center;font-size:12px;color:#90a4ae}
-a{color:#d81b60}
+body{font-family:-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;line-height:1.8;color:#2c3e50;max-width:860px;margin:0 auto;padding:28px 20px;background:#f5f7fa}
+.page{background:#fff;border-radius:10px;box-shadow:0 2px 12px rgba(0,0,0,.08);overflow:hidden}
+.hd{background:linear-gradient(135deg,#1a237e,#3949ab);color:#fff;padding:26px 32px}
+.hd h1{font-size:22px;margin-bottom:8px}
+.hd .meta{font-size:13px;opacity:.85}
+.badge{display:inline-block;padding:2px 10px;border-radius:4px;font-size:12px;background:rgba(255,255,255,.2);margin-left:8px;vertical-align:middle}
+.bd{padding:26px 32px}
+h2{font-size:17px;color:#1a237e;margin:26px 0 10px;padding-left:10px;border-left:4px solid #3949ab}
+h2:first-child{margin-top:0}
+h3{font-size:15px;color:#283593;margin:16px 0 6px}
+p,li{font-size:14px;color:#37474f}
+ul,ol{padding-left:22px}
+li{margin:4px 0}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:13px}
+th{background:#e8eaf6;color:#1a237e;padding:8px 10px;text-align:left;border:1px solid #c5cae9}
+td{padding:7px 10px;border:1px solid #e0e0e0}
+tr:nth-child(even) td{background:#fafbfc}
+.note{background:#fff8e1;border:1px solid #ffe082;border-radius:6px;padding:10px 14px;font-size:13px;color:#6d4c00;margin:12px 0}
+.code{background:#263238;color:#eeffff;border-radius:6px;padding:12px 16px;font-family:Consolas,Menlo,monospace;font-size:13px;overflow-x:auto;margin:10px 0;white-space:pre}
+.formula{background:#e3f2fd;border-radius:6px;padding:12px 16px;text-align:center;font-size:16px;color:#0d47a1;margin:10px 0;font-family:"Cambria Math",Georgia,serif}
+.tag{display:inline-block;font-size:11px;padding:1px 8px;border-radius:10px;background:#e3f2fd;color:#1565c0;margin:0 4px}
+.case{border:1px solid #e0e0e0;border-radius:8px;padding:14px 18px;margin:12px 0;background:#fafbfc}
+.case h3{margin-top:0}
+.ft{padding:16px 32px;background:#fafbfc;border-top:1px solid #eceff1;font-size:12px;color:#90a4ae;text-align:center}
 </style>
 </head>
 <body>
-<header>
-<h1>Python 入门微课视频<span class="badge">视频</span></h1>
-<div class="sub">所属课程：Python程序设计 &nbsp;|&nbsp; 资源编号：R010</div>
-</header>
-<section class="desc">
-<p>环境搭建与第一个程序</p>
-</section>
-<section class="outline">
-<h2>内容概要</h2>
+<div class="page">
+  <div class="hd">
+    <h1>Python 入门微课视频<span class="badge">视频</span></h1>
+    <div class="meta">课程：Python程序设计（CS202） &nbsp;|&nbsp; 2025-2026-1 &nbsp;|&nbsp; 资源编号：R010</div>
+  </div>
+  <div class="bd">
+<h2>视频信息</h2>
+<table>
+<tr><th style="width:110px">时长</th><td>18 分 20 秒</td><th style="width:110px">难度</th><td>★☆☆☆☆（零基础入门）</td></tr>
+<tr><th>配套章节</th><td colspan="3">第 1 章 Python 概述 · 环境搭建与第一个程序</td></tr>
+</table>
+<h2>内容时间轴</h2>
+<table>
+<tr><th style="width:110px">时间点</th><th>内容</th></tr>
+<tr><td>▶ 00:00</td><td>课程介绍：Python 能做什么？（Web、数据分析、AI、自动化）</td></tr>
+<tr><td>▶ 02:30</td><td>下载安装 Python 3.12 官方安装包，勾选 Add to PATH 的关键操作</td></tr>
+<tr><td>▶ 05:00</td><td>验证安装：命令行执行 python --version 与进入交互式解释器</td></tr>
+<tr><td>▶ 07:15</td><td>安装 VS Code 并配置 Python 扩展，创建第一个 .py 文件</td></tr>
+<tr><td>▶ 10:30</td><td>编写并运行 Hello World，讲解 print 函数与注释</td></tr>
+<tr><td>▶ 13:00</td><td>变量与基本数据类型：int/float/str/bool，动态类型特性演示</td></tr>
+<tr><td>▶ 16:00</td><td>常见报错解读：NameError、SyntaxError 的识别与排查</td></tr>
+</table>
+<h2>核心知识点</h2>
 <ul>
-<li>▶ 00:00 - 课程导入与学习目标</li>
-<li>▶ 05:30 - 核心原理讲解</li>
-<li>▶ 12:00 - 操作演示 / 案例展示</li>
-<li>▶ 18:45 - 常见误区分析</li>
-<li>▶ 22:00 - 小结与课后任务</li>
+<li>Python 是解释型、动态类型语言，无需声明变量类型；</li>
+<li>缩进即语法：Python 用缩进表示代码块，统一使用 4 个空格；</li>
+<li>交互式解释器（REPL）是验证小片段代码的高效工具；</li>
+<li>print() 支持 sep 与 end 参数定制输出格式。</li>
 </ul>
-</section>
-<footer>
-  爱教学平台 &middot; 演示资源
-</footer>
+<h2>演示代码</h2><div class="code"># 第一个 Python 程序
+print("Hello, 爱教学！")
+
+# 变量与数据类型
+name = "同学"        # str
+age = 20              # int
+score = 95.5          # float
+passed = True         # bool
+
+print(f"{name}，{age}岁，成绩：{score}")
+print("语文", "数学", "英语", sep=" | ")</div>
+<h2>观看建议</h2>
+<ul>
+<li>跟着视频同步动手操作，不要只看不动手；</li>
+<li>07:15 的 VS Code 配置步骤对后续所有实验课通用，务必完成；</li>
+<li>遇到报错先读最后一行错误类型，再回看提示的行号。</li>
+</ul></div>
+  <div class="ft">爱教学平台 · 课程配套教学资源 · 仅供教学演示使用</div>
+</div>
 </body>
 </html>
