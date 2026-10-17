@@ -41,43 +41,61 @@ tr:nth-child(even) td{background:#fafbfc}
   <div class="bd">
 <h2>视频信息</h2>
 <table>
-<tr><th style="width:110px">时长</th><td>18 分 20 秒</td><th style="width:110px">难度</th><td>★☆☆☆☆（零基础入门）</td></tr>
+<tr><th style="width:110px">时长</th><td>32 分 15 秒（含 3 段随堂动手环节）</td><th style="width:110px">难度</th><td>★☆☆☆☆（零基础入门，无需任何编程经验）</td></tr>
 <tr><th>配套章节</th><td colspan="3">第 1 章 Python 概述 · 环境搭建与第一个程序</td></tr>
 </table>
 <h2>内容时间轴</h2>
 <table>
 <tr><th style="width:110px">时间点</th><th>内容</th></tr>
-<tr><td>▶ 00:00</td><td>课程介绍：Python 能做什么？（Web、数据分析、AI、自动化）</td></tr>
-<tr><td>▶ 02:30</td><td>下载安装 Python 3.12 官方安装包，勾选 Add to PATH 的关键操作</td></tr>
-<tr><td>▶ 05:00</td><td>验证安装：命令行执行 python --version 与进入交互式解释器</td></tr>
-<tr><td>▶ 07:15</td><td>安装 VS Code 并配置 Python 扩展，创建第一个 .py 文件</td></tr>
-<tr><td>▶ 10:30</td><td>编写并运行 Hello World，讲解 print 函数与注释</td></tr>
-<tr><td>▶ 13:00</td><td>变量与基本数据类型：int/float/str/bool，动态类型特性演示</td></tr>
-<tr><td>▶ 16:00</td><td>常见报错解读：NameError、SyntaxError 的识别与排查</td></tr>
+<tr><td>▶ 00:00</td><td>课程介绍：Python 能做什么？—— Web 后端（豆瓣/Instagram）、数据分析（Pandas）、人工智能（PyTorch）、办公自动化（Excel 批处理）</td></tr>
+<tr><td>▶ 03:20</td><td>为什么选择 Python：语法简洁、生态丰富、社区活跃；TIOBE 排行榜常年第一</td></tr>
+<tr><td>▶ 05:40</td><td>【动手 1】官网下载 Python 3.12 安装包，Windows 安装时务必勾选 "Add python.exe to PATH"，演示忘记勾选后的补救方法</td></tr>
+<tr><td>▶ 09:10</td><td>验证安装：Win+R 打开 cmd，执行 python --version 显示版本号；进入交互式解释器（REPL），输入 1+1 实时求值</td></tr>
+<tr><td>▶ 12:30</td><td>【动手 2】安装 VS Code：安装 Python 官方扩展、选择解释器、新建 hello.py 文件、运行按钮的三种方式</td></tr>
+<tr><td>▶ 17:00</td><td>编写并运行 Hello World：print 函数的 sep/end 参数、单行注释 # 与多行注释三引号</td></tr>
+<tr><td>▶ 21:20</td><td>变量与基本数据类型：int / float / str / bool；动态类型 vs 静态类型对比演示（type() 函数查看类型）</td></tr>
+<tr><td>▶ 25:00</td><td>f-string 格式化输出：姓名、年龄、成绩拼接成一句话；input() 接收用户输入并完成"年龄+1"小程序</td></tr>
+<tr><td>▶ 28:30</td><td>【动手 3】常见报错实战：NameError（变量未定义）、SyntaxError（中文括号）、TypeError（字符串与数字相加）的识别与排查</td></tr>
+<tr><td>▶ 31:00</td><td>本课小结与下节预告：if 分支与 while 循环</td></tr>
 </table>
 <h2>核心知识点</h2>
 <ul>
-<li>Python 是解释型、动态类型语言，无需声明变量类型；</li>
-<li>缩进即语法：Python 用缩进表示代码块，统一使用 4 个空格；</li>
-<li>交互式解释器（REPL）是验证小片段代码的高效工具；</li>
-<li>print() 支持 sep 与 end 参数定制输出格式。</li>
+<li>Python 是解释型、动态类型语言：无需编译、无需声明变量类型，赋值即创建变量；</li>
+<li>缩进即语法：Python 用 4 个空格缩进表示代码块，Tab 与空格混用会报 IndentationError；</li>
+<li>REPL（交互式解释器）是验证小片段代码的最高效工具，输入 exit() 退出；</li>
+<li>print() 默认以换行结尾，可用 end="" 取消；多值输出默认空格分隔，可用 sep 定制；</li>
+<li>input() 永远返回字符串，做数值运算前必须用 int() 或 float() 转换；</li>
+<li>命名规范：变量名用蛇形命名法（snake_case），如 student_name；常量全大写，如 MAX_SIZE。</li>
 </ul>
-<h2>演示代码</h2><div class="code"># 第一个 Python 程序
+<h2>演示代码</h2><div class="code"># ===== 第 1 个程序：Hello World =====
 print("Hello, 爱教学！")
 
-# 变量与数据类型
-name = "同学"        # str
-age = 20              # int
-score = 95.5          # float
-passed = True         # bool
+# ===== 变量与数据类型 =====
+name = "小明"          # str：字符串，双引号单引号均可
+age = 20                # int：整数
+score = 95.5            # float：浮点数
+passed = True           # bool：布尔值，注意首字母大写
 
-print(f"{name}，{age}岁，成绩：{score}")
-print("语文", "数学", "英语", sep=" | ")</div>
+print(type(name))       # &lt;class 'str'&gt;
+
+# ===== f-string 格式化（Python 3.6+ 推荐写法）=====
+print(f"{name}今年{age}岁，Python成绩：{score}分")
+
+# ===== input 与用户交互 =====
+birth_year = input("请输入你的出生年份：")   # input 返回 str
+age_calc = 2025 - int(birth_year)             # 必须先转 int
+print(f"你今年大约 {age_calc} 岁")
+
+# ===== print 高级用法 =====
+print("语文", "数学", "英语", sep=" | ")     # 语文 | 数学 | 英语
+print("不换行", end="")
+print("接着上一行")</div>
 <h2>观看建议</h2>
 <ul>
-<li>跟着视频同步动手操作，不要只看不动手；</li>
-<li>07:15 的 VS Code 配置步骤对后续所有实验课通用，务必完成；</li>
-<li>遇到报错先读最后一行错误类型，再回看提示的行号。</li>
+<li>三段【动手】环节请务必暂停视频同步操作，编程是"做"会的，不是"看"会的；</li>
+<li>12:30 的 VS Code 配置对后续全部实验课通用，完成后截图保存配置界面备查；</li>
+<li>遇到报错先读最后一行（错误类型+原因），再回看提示的行号；把错误信息复制到搜索引擎是最快的排查方式；</li>
+<li>配套练习：完成课程平台"第 1 章闯关练习"共 10 题（在线自动判题），截止本周日 23:59。</li>
 </ul></div>
   <div class="ft">爱教学平台 · 课程配套教学资源 · 仅供教学演示使用</div>
 </div>
