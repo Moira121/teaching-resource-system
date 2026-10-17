@@ -7,6 +7,9 @@ let currentPage = 1;
 const PAGE_SIZE = 50;
 
 async function init() {
+  const auth = getAuth();
+  if (!auth || !auth.token || auth.role !== 'director') { redirectToLogin(); return; }
+
   setupLogout();
   setupModalClose();
   setupCourseTableDelegation();

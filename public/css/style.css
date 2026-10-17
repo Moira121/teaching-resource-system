@@ -563,6 +563,121 @@ body {
   margin-left: 8px;
 }
 
+/* 教学资源区（Sprint2） */
+.resource-section {
+  margin-top: 20px;
+  border-top: 1px dashed #e8e8e8;
+  padding-top: 16px;
+}
+
+.resource-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #1f1f1f;
+}
+
+.res-loading,
+.res-empty {
+  font-size: 13px;
+  color: #8c8c8c;
+  padding: 8px 0;
+}
+
+.res-item {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 9px 0;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.res-item:last-child { border-bottom: none; }
+
+.res-type-tag {
+  flex-shrink: 0;
+  font-size: 12px;
+  color: #1890ff;
+  background: #e6f7ff;
+  border: 1px solid #91d5ff;
+  border-radius: 4px;
+  padding: 1px 8px;
+}
+
+.res-name {
+  color: #1890ff;
+  font-size: 14px;
+  text-decoration: none;
+  word-break: break-all;
+}
+
+.res-name:hover { text-decoration: underline; }
+
+.res-desc {
+  font-size: 12px;
+  color: #8c8c8c;
+  width: 100%;
+  padding-left: 2px;
+}
+
+.res-edit-btn,
+.res-delete-btn {
+  margin-left: auto;
+  font-size: 12px;
+  padding: 2px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid #d9d9d9;
+  color: #595959;
+}
+
+.res-delete-btn { color: #ff4d4f; border-color: #ffccc7; }
+.res-edit-btn:hover { border-color: #1890ff; color: #1890ff; }
+.res-delete-btn:hover { border-color: #ff4d4f; }
+
+.res-form {
+  margin-top: 14px;
+  background: #fafafa;
+  border: 1px solid #f0f0f0;
+  border-radius: 6px;
+  padding: 12px;
+}
+
+.res-form-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #595959;
+  margin-bottom: 8px;
+}
+
+.res-form-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.res-form-row:last-child { margin-bottom: 0; }
+
+.res-form input,
+.res-form select {
+  flex: 1;
+  padding: 6px 10px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  font-size: 13px;
+  outline: none;
+}
+
+.res-form input:focus,
+.res-form select:focus {
+  border-color: #1890ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.res-form .btn { padding: 6px 16px; }
+
 .footer-info {
   text-align: center;
   padding: 20px;
