@@ -1,32 +1,78 @@
+# AIJiaoxue CI pipeline
+# - lint: ESLint static check (single job)
+# - test: npm ci + init-db smoke + node:test serial suite
+#   across Ubuntu/Windows x Node 22/24 matrix
+#   (each test case builds/destroys its own temp database and runs serially,
+#    verifying the better-sqlite3 stability fix does not regress cross-platform)
+#
+# NOTE: Windows 作业固定使用 windows-2022（预装 VS2022 + C++ 负载）。
+# windows-latest 已迁移到 Server 2025 / VS2026，node-gyp v11 无法识别，
+# 会导致 better-sqlite3 源码编译失败（"Could not find any Visual Studio"）。
 name: CI
-on: push
+
+on:
+  push:
+    branches: [main, feature/sprint2-resources]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   lint:
+    name: Lint (ESLint)
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 24
-      - run: npm install
-      - run: npm run lint
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
 
   test:
+    name: Test (${{ matrix.os }} / Node ${{ matrix.node-version }})
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-2022]
-        node-version: [24]
+        node-version: [22, 24]
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm install
+          cache: npm
+
+      # better-sqlite3 优先使用官方预编译二进制；预编译不可用时才回退源码编译。
+      # 显式声明环境变量，避免某些 runner 镜像误配置导致跳过 prebuild-install。
+      - name: Install dependencies
+        run: npm ci
+        env:
+          npm_config_build_from_source: false
+
       - name: Init database smoke check
-        run: npm run db-smoke
-      - name: Run tests
+        run: npm run init-db
+
+      - name: Run tests (serial, 51 cases)
         run: npm test
