@@ -1,0 +1,70 @@
+# AIJiaoxue CI pipeline
+# - lint: ESLint static check (single job)
+# - test: npm ci + init-db smoke + node:test serial suite
+#   across Ubuntu/Windows x Node 22/24 matrix
+#   (each test case builds/destroys its own temp database and runs serially,
+#    verifying the better-sqlite3 stability fix does not regress cross-platform)
+name: CI
+
+on:
+  push:
+    branches: [main, feature/sprint2-resources]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Lint (ESLint)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
+
+  test:
+    name: Test (${{ matrix.os }} / Node ${{ matrix.node-version }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        node-version: [22, 24]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Init database smoke check
+        run: npm run init-db
+
+      - name: Run tests (serial, 51 cases)
+        run: npm test

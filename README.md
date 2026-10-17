@@ -99,6 +99,16 @@ npm.cmd run lint       # ESLint 检查
     └── resources.test.js     # 19 条资源模块用例
 ```
 
+---
+
+## CI（GitHub Actions）
+
+- 配置文件：`.github/workflows/ci.yml`，push / PR / 手动触发
+- **Lint 作业**：Node 24 + ESLint（`npm run lint`）
+- **Test 作业**：`npm ci` → `init-db` 冒烟 → 51 条测试串行执行，
+  矩阵覆盖 Ubuntu/Windows × Node 22/24，验证 better-sqlite3 稳定性修复跨平台不回归
+- 推送到 GitHub 后自动生效（当前仓库未配置 remote，添加后 `git push -u origin feature/sprint2-resources` 即可看到运行结果）
+
 ## 分支与提交
 
 - `main`：Sprint1 基线
