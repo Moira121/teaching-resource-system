@@ -31,23 +31,25 @@ const courses = [
 /**
  * 教学资源：课程配套的课件/文档/视频/链接/作业等。
  * type 取值：课件 / 文档 / 视频 / 链接 / 作业
+ * url 为本地演示资源页（public/resources/ 下真实 HTML，点击可显示），
+ * 由 scripts/build-demo-resources.js 生成。
  */
 const resources = [
-  { id: 'R001', courseId: 'C001', name: '软件工程导论-教学大纲.pdf', type: '文档', url: 'https://res.example.com/se101/syllabus.pdf', description: '课程目标、进度与考核方式说明' },
-  { id: 'R002', courseId: 'C001', name: '第1章 软件工程概述（课件）', type: '课件', url: 'https://res.example.com/se101/ch01.pptx', description: '' },
-  { id: 'R003', courseId: 'C001', name: '需求分析作业模板', type: '作业', url: 'https://res.example.com/se101/homework-template.docx', description: '第一次大作业使用' },
-  { id: 'R004', courseId: 'C002', name: '数据结构与算法-教学大纲.pdf', type: '文档', url: 'https://res.example.com/se201/syllabus.pdf', description: '' },
-  { id: 'R005', courseId: 'C002', name: '第3章 栈与队列（课件）', type: '课件', url: 'https://res.example.com/se201/ch03.pptx', description: '' },
-  { id: 'R006', courseId: 'C002', name: '排序算法可视化演示', type: '视频', url: 'https://res.example.com/se201/sort-demo.mp4', description: '快速排序/归并排序过程演示' },
-  { id: 'R007', courseId: 'C003', name: '数据库系统原理-教学大纲.pdf', type: '文档', url: 'https://res.example.com/se301/syllabus.pdf', description: '' },
-  { id: 'R008', courseId: 'C003', name: 'SQL 上机实验指导书', type: '文档', url: 'https://res.example.com/se301/sql-lab.pdf', description: '共 4 次上机实验' },
-  { id: 'R009', courseId: 'C004', name: '计算机基础-电子课件合集', type: '课件', url: 'https://res.example.com/cs101/slides.zip', description: '' },
-  { id: 'R010', courseId: 'C005', name: 'Python 入门微课视频', type: '视频', url: 'https://res.example.com/cs202/intro.mp4', description: '环境搭建与第一个程序' },
-  { id: 'R011', courseId: 'C006', name: '通信原理-教学大纲.pdf', type: '文档', url: 'https://res.example.com/ce101/syllabus.pdf', description: '' },
-  { id: 'R012', courseId: 'C006', name: '奈奎斯特与香农公式推导', type: '链接', url: 'https://res.example.com/ce101/derivation', description: '课外阅读材料' },
-  { id: 'R013', courseId: 'C008', name: '软件测试技术-实验指导书', type: '文档', url: 'https://res.example.com/st101/lab.pdf', description: '' },
-  { id: 'R014', courseId: 'C010', name: '软件项目管理-案例库', type: '链接', url: 'https://res.example.com/se401/cases', description: '典型项目管理案例分析' },
-  { id: 'R015', courseId: 'C012', name: '自动化测试框架演示视频', type: '视频', url: 'https://res.example.com/st201/demo.mp4', description: '' }
+  { id: 'R001', courseId: 'C001', name: '软件工程导论-教学大纲.pdf', type: '文档', url: '/resources/se101/syllabus.html', description: '课程目标、进度与考核方式说明' },
+  { id: 'R002', courseId: 'C001', name: '第1章 软件工程概述（课件）', type: '课件', url: '/resources/se101/ch01.html', description: '' },
+  { id: 'R003', courseId: 'C001', name: '需求分析作业模板', type: '作业', url: '/resources/se101/homework-template.html', description: '第一次大作业使用' },
+  { id: 'R004', courseId: 'C002', name: '数据结构与算法-教学大纲.pdf', type: '文档', url: '/resources/se201/syllabus.html', description: '' },
+  { id: 'R005', courseId: 'C002', name: '第3章 栈与队列（课件）', type: '课件', url: '/resources/se201/ch03.html', description: '' },
+  { id: 'R006', courseId: 'C002', name: '排序算法可视化演示', type: '视频', url: '/resources/se201/sort-demo.html', description: '快速排序/归并排序过程演示' },
+  { id: 'R007', courseId: 'C003', name: '数据库系统原理-教学大纲.pdf', type: '文档', url: '/resources/se301/syllabus.html', description: '' },
+  { id: 'R008', courseId: 'C003', name: 'SQL 上机实验指导书', type: '文档', url: '/resources/se301/sql-lab.html', description: '共 4 次上机实验' },
+  { id: 'R009', courseId: 'C004', name: '计算机基础-电子课件合集', type: '课件', url: '/resources/cs101/slides.html', description: '' },
+  { id: 'R010', courseId: 'C005', name: 'Python 入门微课视频', type: '视频', url: '/resources/cs202/intro.html', description: '环境搭建与第一个程序' },
+  { id: 'R011', courseId: 'C006', name: '通信原理-教学大纲.pdf', type: '文档', url: '/resources/ce101/syllabus.html', description: '' },
+  { id: 'R012', courseId: 'C006', name: '奈奎斯特与香农公式推导', type: '链接', url: '/resources/ce101/derivation.html', description: '课外阅读材料' },
+  { id: 'R013', courseId: 'C008', name: '软件测试技术-实验指导书', type: '文档', url: '/resources/st101/lab.html', description: '' },
+  { id: 'R014', courseId: 'C010', name: '软件项目管理-案例库', type: '链接', url: '/resources/se401/cases.html', description: '典型项目管理案例分析' },
+  { id: 'R015', courseId: 'C012', name: '自动化测试框架演示视频', type: '视频', url: '/resources/st201/demo.html', description: '' }
 ];
 
 module.exports = { teachers, courses, resources };
