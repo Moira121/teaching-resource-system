@@ -1,13 +1,40 @@
-// 爱教学平台 - 共享工具模块（Sprint2：鉴权头/401 兜底/教学资源）
+// 爱教学平台 - 共享工具模块
+// Sprint2: 鉴权头/401 兜底/教学资源
+// 2025-10-22: 统一 escapeHtml 防存储型 XSS；sessionStorage 结构校验
 
 const AUTH_KEY = 'auth';
+const VALID_ROLES = ['director', 'teacher', 'supervisor'];
+
+/* ---------------- XSS 防御 ---------------- */
+
+/**
+ * 统一 HTML 转义：数据字段一律经此函数后再拼到 innerHTML。
+ * 覆盖 & / < / > / " / '，杜绝存储型 XSS。
+ */
+function escapeHtml(str) {
+  if (str == null) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
 
 /* ---------------- 登录态 ---------------- */
 
 function getAuth() {
   try {
     const raw = sessionStorage.getItem(AUTH_KEY);
-    return raw ? JSON.parse(raw) : null;
+    if (!raw) return null;
+    const obj = JSON.parse(raw);
+    // 结构校验：必须含 token（非空字符串）+ role（白名单值），teacher 若存在需有 id
+    if (!obj || typeof obj.token !== 'string' || !obj.token) return null;
+    if (typeof obj.role !== 'string' || !VALID_ROLES.includes(obj.role)) return null;
+    if (obj.teacher != null) {
+      if (typeof obj.teacher !== 'object' || typeof obj.teacher.id !== 'string' || !obj.teacher.id) return null;
+    }
+    return obj;
   } catch (e) {
     return null;
   }
@@ -22,7 +49,7 @@ function clearAuth() {
   sessionStorage.clear();
 }
 
-/** 未登录/过期统一跳回登录页 */
+/** 未登录/过期统一跳回登录页（角色页/业务接口 401 时调用） */
 function redirectToLogin() {
   clearAuth();
   if (!location.pathname.endsWith('/index.html') && location.pathname !== '/') {
@@ -31,7 +58,7 @@ function redirectToLogin() {
 }
 
 /**
- * 统一请求兜底层（Sprint1 B1）：
+ * 统一请求兜底层：
  * 自动携带鉴权头；网络异常/HTTP 非 2xx/业务码非 0 一律抛错；401 清理登录态。
  */
 async function rawRequest(url, options = {}) {
@@ -61,7 +88,6 @@ function safeAlert(msg) {
 }
 
 const API = {
-  /** 登录：成功后返回 { token, role, teacher }，由调用方持久化 */
   async login(role, teacherId) {
     const res = await fetch('/api/auth/login', {
       method: 'POST',
@@ -77,7 +103,6 @@ const API = {
   async getTeachers() {
     return (await rawRequest('/api/teachers')).data;
   },
-  /** 登录页公开名录（仅 id/name/title） */
   async getLoginTeachers() {
     return (await rawRequest('/api/auth/teachers')).data;
   },
@@ -122,13 +147,12 @@ const API = {
   }
 };
 
-/* ---------------- 表格/分页/事件委托（Sprint1） ---------------- */
+/* ---------------- 表格/分页/事件委托 ---------------- */
 
 function setupCourseTableDelegation() {
   const tableBody = document.getElementById('tableBody');
   if (tableBody && !tableBody.dataset.delegated) {
     tableBody.dataset.delegated = '1';
-    // 事件委托：一个监听器服务全部"详情"按钮，避免逐行绑定
     tableBody.addEventListener('click', e => {
       const btn = e.target.closest('.view-btn');
       if (btn) showCourseDetail(btn.dataset.id);
@@ -150,7 +174,7 @@ function renderPagination(paginationEl, total, page, pageSize, onChange) {
   }
   html += `<button class="page-btn" data-page="${page + 1}" ${page === totalPages ? 'disabled' : ''}>下一页</button>`;
   html += `<button class="page-btn" data-page="${totalPages}" ${page === totalPages ? 'disabled' : ''}>末页</button>`;
-  html += `<span class="page-info">共 ${total} 条 / ${totalPages} 页</span>`;
+  html += `<span class="page-info">共 ${escapeHtml(total)} 条 / ${escapeHtml(totalPages)} 页</span>`;
   paginationEl.innerHTML = html;
   paginationEl.querySelectorAll('.page-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -160,7 +184,7 @@ function renderPagination(paginationEl, total, page, pageSize, onChange) {
   });
 }
 
-/* ---------------- 课程详情 + 教学资源（Sprint2） ---------------- */
+/* ---------------- 课程详情 + 教学资源 ---------------- */
 
 /** 详情弹窗打开后加载教学资源；教师本人课程显示增删改表单，其余角色只读 */
 async function renderResourceSection(course) {
@@ -178,11 +202,11 @@ async function renderResourceSection(course) {
     } else {
       list.forEach(r => {
         html += `
-          <div class="res-item" data-res-id="${r.id}">
-            <span class="res-type-tag">${r.type}</span>
-            <a class="res-name" href="${r.url}" target="_blank" rel="noopener noreferrer">${r.name}</a>
-            ${r.description ? `<span class="res-desc">${r.description}</span>` : ''}
-            ${canManage ? `<button class="res-edit-btn" data-id="${r.id}">编辑</button><button class="res-delete-btn" data-id="${r.id}">删除</button>` : ''}
+          <div class="res-item" data-res-id="${escapeHtml(r.id)}">
+            <span class="res-type-tag">${escapeHtml(r.type)}</span>
+            <a class="res-name" href="${escapeHtml(r.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(r.name)}</a>
+            ${r.description ? `<span class="res-desc">${escapeHtml(r.description)}</span>` : ''}
+            ${canManage ? `<button class="res-edit-btn" data-id="${escapeHtml(r.id)}">编辑</button><button class="res-delete-btn" data-id="${escapeHtml(r.id)}">删除</button>` : ''}
           </div>`;
       });
     }
@@ -190,7 +214,7 @@ async function renderResourceSection(course) {
 
     if (canManage) {
       html += `
-        <form class="res-form" id="resForm" data-course-id="${course.id}">
+        <form class="res-form" id="resForm" data-course-id="${escapeHtml(course.id)}">
           <div class="res-form-title" id="resFormTitle">添加教学资源</div>
           <input type="hidden" id="resEditId" value="">
           <div class="res-form-row">
@@ -219,7 +243,7 @@ async function renderResourceSection(course) {
     box.dataset.courseId = course.id;
     box.dataset.canManage = canManage ? '1' : '0';
   } catch (e) {
-    box.innerHTML = `<div class="res-empty">教学资源加载失败：${e.message || '未知错误'}</div>`;
+    box.innerHTML = `<div class="res-empty">教学资源加载失败：${escapeHtml(e.message || '未知错误')}</div>`;
   }
 }
 
@@ -247,7 +271,7 @@ async function submitResourceForm(form) {
   }
 }
 
-/** 点击"编辑"：把资源内容填入表单 */
+/** 点击"编辑"：把资源内容填入表单（表单 value 用原生 .value 赋值，不走 innerHTML，天然安全） */
 async function fillResourceForm(resId) {
   const box = document.getElementById('resourceBox');
   const courseId = box.dataset.courseId;
@@ -313,29 +337,29 @@ function setupResourceDelegation() {
   });
 }
 
-/** 打开课程详情：基础信息 + 教学资源（Sprint1 B3：空值保护 + try/catch） */
+/** 打开课程详情：所有数据字段统一 escapeHtml 后再拼 innerHTML */
 async function showCourseDetail(courseId) {
   try {
     const course = await API.getCourse(courseId);
     if (!course) { safeAlert('课程信息不存在'); return; }
     document.getElementById('modalBody').innerHTML = `
       <div class="detail-grid">
-        <div class="detail-item"><div class="detail-label">课程代码</div><div class="detail-value">${course.code || '-'}</div></div>
-        <div class="detail-item"><div class="detail-label">课程名称</div><div class="detail-value">${course.name || '-'}</div></div>
-        <div class="detail-item"><div class="detail-label">学分</div><div class="detail-value">${course.credit ?? '-'}</div></div>
-        <div class="detail-item"><div class="detail-label">学时</div><div class="detail-value">${course.hours ?? '-'}</div></div>
-        <div class="detail-item"><div class="detail-label">授课教师</div><div class="detail-value">${course.teacher || '-'}（${course.teacherTitle || '-'}）</div></div>
-        <div class="detail-item"><div class="detail-label">课程类别</div><div class="detail-value">${course.category || '-'}</div></div>
-        <div class="detail-item"><div class="detail-label">学期</div><div class="detail-value">${course.semester || '-'}</div></div>
-        <div class="detail-item"><div class="detail-label">学生人数</div><div class="detail-value">${course.studentCount ?? 0} 人</div></div>
-        <div class="detail-item"><div class="detail-label">开课学院</div><div class="detail-value">${course.college || '-'}</div></div>
-        <div class="detail-item"><div class="detail-label">教研室</div><div class="detail-value">${course.department || '-'}</div></div>
-        <div class="detail-item"><div class="detail-label">上课教室</div><div class="detail-value">${course.classroom || '-'}</div></div>
-        <div class="detail-item"><div class="detail-label">上课时间</div><div class="detail-value">${course.schedule || '-'}</div></div>
+        <div class="detail-item"><div class="detail-label">课程代码</div><div class="detail-value">${escapeHtml(course.code)}</div></div>
+        <div class="detail-item"><div class="detail-label">课程名称</div><div class="detail-value">${escapeHtml(course.name)}</div></div>
+        <div class="detail-item"><div class="detail-label">学分</div><div class="detail-value">${escapeHtml(course.credit ?? '-')}</div></div>
+        <div class="detail-item"><div class="detail-label">学时</div><div class="detail-value">${escapeHtml(course.hours ?? '-')}</div></div>
+        <div class="detail-item"><div class="detail-label">授课教师</div><div class="detail-value">${escapeHtml(course.teacher || '-')}（${escapeHtml(course.teacherTitle || '-')}）</div></div>
+        <div class="detail-item"><div class="detail-label">课程类别</div><div class="detail-value">${escapeHtml(course.category || '-')}</div></div>
+        <div class="detail-item"><div class="detail-label">学期</div><div class="detail-value">${escapeHtml(course.semester || '-')}</div></div>
+        <div class="detail-item"><div class="detail-label">学生人数</div><div class="detail-value">${escapeHtml(course.studentCount ?? 0)} 人</div></div>
+        <div class="detail-item"><div class="detail-label">开课学院</div><div class="detail-value">${escapeHtml(course.college || '-')}</div></div>
+        <div class="detail-item"><div class="detail-label">教研室</div><div class="detail-value">${escapeHtml(course.department || '-')}</div></div>
+        <div class="detail-item"><div class="detail-label">上课教室</div><div class="detail-value">${escapeHtml(course.classroom || '-')}</div></div>
+        <div class="detail-item"><div class="detail-label">上课时间</div><div class="detail-value">${escapeHtml(course.schedule || '-')}</div></div>
       </div>
       <div class="resource-section">
         <div class="resource-title">📎 教学资源</div>
-        <div id="resourceBox" data-course-id="${course.id}"></div>
+        <div id="resourceBox" data-course-id="${escapeHtml(course.id)}"></div>
       </div>`;
     document.getElementById('detailModal').classList.add('show');
     renderResourceSection(course);

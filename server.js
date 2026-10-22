@@ -2,6 +2,7 @@
  * 爱教学平台服务端
  * Sprint1：课程信息查询（分页/搜索转义/合并统计/只读查询）
  * Sprint2：三角色后端鉴权 + 教学资源模块（教师可管理本人课程资源）
+ * 2025-10-22: 双 DB 句柄（只读 / 可写）+ 外键开启 + SELECT * 消除 + keyword SQL 修复 + 导入启动隔离
  */
 const express = require('express');
 const path = require('path');
@@ -26,12 +27,32 @@ if (!fs.existsSync(DB_PATH)) {
   console.error('数据库不存在，请先运行 npm run init-db');
   process.exit(1);
 }
-// Sprint2 存在教师写入资源的合法场景，数据库以读写方式打开；
-// 写操作仅限鉴权后的资源接口，其余接口全部为只读查询。
-const db = new Database(DB_PATH);
-db.pragma('busy_timeout = 5000');
+
+/* ---------- 数据库：双句柄隔离只读/可写 ---------- */
+// 查询接口使用 dbRead（只读，杜绝意外写操作）；资源写接口使用 dbWrite（鉴权后才调用）。
+// WAL 模式需要两个句柄都开 busy_timeout 以避免临时锁竞争。
+const dbRead = new Database(DB_PATH, { readonly: true });
+dbRead.pragma('busy_timeout = 5000');
+
+const dbWrite = new Database(DB_PATH);
+dbWrite.pragma('busy_timeout = 5000');
+dbWrite.pragma('journal_mode = WAL');
+dbWrite.pragma('foreign_keys = ON'); // 外键级联：删课程时 resources 自动清除
+
+// 启动时强校验 resources 表存在（Sprint1 旧库无此表，Sprint2 资源接口会直接报错）
+try {
+  const tbl = dbRead.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='resources'").get();
+  if (!tbl) {
+    console.error('数据库缺少 resources 表，请运行 npm run init-db 重建数据库');
+    process.exit(1);
+  }
+} catch (err) {
+  console.error('启动校验失败：', err.message);
+  process.exit(1);
+}
 
 let filterOptionsCache = null;
+function invalidateFilterCache() { filterOptionsCache = null; }
 
 /* ---------------- 行映射 ---------------- */
 
@@ -94,9 +115,9 @@ function forbidden(res, message) {
   res.status(403).json({ code: 403, message: message || '无权访问该资源' });
 }
 
-/** 取课程原始行（含 teacher_id，用于归属校验） */
+/** 取课程归属信息（仅 id / teacher_id，资源权限校验用，不查全字段） */
 function getCourseRow(courseId) {
-  return db.prepare('SELECT * FROM courses WHERE id = ?').get(courseId);
+  return dbRead.prepare('SELECT id, teacher_id FROM courses WHERE id = ?').get(courseId);
 }
 
 /* ---------------- 鉴权：登录 ---------------- */
@@ -114,7 +135,7 @@ app.post('/api/auth/login', (req, res) => {
     let teacher = null;
     if (role === 'teacher') {
       if (!validId(teacherId || '')) return badRequest(res, '请选择教师身份');
-      const row = db.prepare('SELECT * FROM teachers WHERE id = ?').get(teacherId);
+      const row = dbRead.prepare('SELECT id, name, title FROM teachers WHERE id = ?').get(teacherId);
       if (!row) return badRequest(res, '教师不存在');
       teacher = rowToTeacher(row);
     }
@@ -130,7 +151,7 @@ app.post('/api/auth/login', (req, res) => {
  */
 app.get('/api/auth/teachers', (req, res) => {
   try {
-    const rows = db.prepare('SELECT id, name, title FROM teachers ORDER BY id').all();
+    const rows = dbRead.prepare('SELECT id, name, title FROM teachers ORDER BY id').all();
     res.json({ code: 0, data: rows });
   } catch (err) { serverError(res, err); }
 });
@@ -140,7 +161,7 @@ app.get('/api/auth/teachers', (req, res) => {
 /** 教师列表仅主任/督导可见（督导按教师确定听课对象） */
 app.get('/api/teachers', requireAuth, requireRole('director', 'supervisor'), (req, res) => {
   try {
-    const rows = db.prepare('SELECT * FROM teachers ORDER BY id').all();
+    const rows = dbRead.prepare('SELECT id, name, title, college, department FROM teachers ORDER BY id').all();
     res.json({ code: 0, data: rows.map(rowToTeacher) });
   } catch (err) { serverError(res, err); }
 });
@@ -151,7 +172,7 @@ app.get('/api/teachers/:id', requireAuth, (req, res) => {
     const { id } = req.params;
     if (!validId(id)) return badRequest(res, 'id 参数格式错误');
     if (req.auth.role === 'teacher' && req.auth.teacherId !== id) return forbidden(res);
-    const row = db.prepare('SELECT * FROM teachers WHERE id = ?').get(id);
+    const row = dbRead.prepare('SELECT id, name, title, college, department FROM teachers WHERE id = ?').get(id);
     if (!row) return notFound(res, '教师不存在');
     res.json({ code: 0, data: rowToTeacher(row) });
   } catch (err) { serverError(res, err); }
@@ -162,9 +183,9 @@ app.get('/api/teachers/:id/stats', requireAuth, (req, res) => {
     const { id } = req.params;
     if (!validId(id)) return badRequest(res, 'id 参数格式错误');
     if (req.auth.role === 'teacher' && req.auth.teacherId !== id) return forbidden(res);
-    const exists = db.prepare('SELECT 1 FROM teachers WHERE id = ?').get(id);
+    const exists = dbRead.prepare('SELECT 1 FROM teachers WHERE id = ?').get(id);
     if (!exists) return notFound(res, '教师不存在');
-    const row = db.prepare(`
+    const row = dbRead.prepare(`
       SELECT COUNT(*) AS courseCount,
              COALESCE(SUM(student_count), 0) AS studentTotal,
              COALESCE(SUM(hours), 0) AS hoursTotal
@@ -177,8 +198,9 @@ app.get('/api/teachers/:id/stats', requireAuth, (req, res) => {
 /* ---------------- 课程 ---------------- */
 
 /**
- * 课程列表（分页 + 多条件筛选）。
+ * 课程列表（分页 + 多条件筛选 + 关键词 LIKE ESCAPE）。
  * 权限：教师身份强制只返回本人课程（忽略客户端 teacherId）；主任/督导可全量筛选。
+ * 关键：keyword 条件合并到 where 数组，保证 where 为空时 keyword 不会造成 "WHERE AND" 语法错误。
  */
 app.get('/api/courses', requireAuth, (req, res) => {
   try {
@@ -200,22 +222,26 @@ app.get('/api/courses', requireAuth, (req, res) => {
     if (department) { where.push('c.department = ?'); params.push(department); }
     if (category) { where.push('c.category = ?'); params.push(category); }
 
-    const joinSql = 'FROM courses c JOIN teachers t ON c.teacher_id = t.id';
-    let fromSql = where.length ? `${joinSql} WHERE ${where.join(' AND ')}` : joinSql;
-
-    // 通配符转义，防止 % / _ 造成超范围匹配
+    // 通配符转义，防止 % / _ / # 造成超范围匹配或注入式查询
     if (keyword) {
       const kw = escapeLikeKeyword(keyword);
       const like = "LIKE ? ESCAPE '#'";
       const kwSql = `(${['c.name', 'c.code', 't.name'].map(col => `${col} ${like}`).join(' OR ')})`;
-      fromSql += ` AND ${kwSql}`;
+      where.push(kwSql);
       const kwParam = `%${kw}%`;
       params.push(kwParam, kwParam, kwParam);
     }
 
-    const total = db.prepare(`SELECT COUNT(*) AS c ${fromSql}`).get(...params).c;
-    const rows = db.prepare(`
-      SELECT c.*, t.name AS teacher_name, t.title AS teacher_title
+    const joinSql = 'FROM courses c JOIN teachers t ON c.teacher_id = t.id';
+    const fromSql = where.length
+      ? `${joinSql} WHERE ${where.join(' AND ')}`
+      : joinSql;
+
+    const total = dbRead.prepare(`SELECT COUNT(*) AS c ${fromSql}`).get(...params).c;
+    const rows = dbRead.prepare(`
+      SELECT c.id, c.code, c.name, c.credit, c.hours, c.semester, c.college, c.department,
+             c.teacher_id, c.student_count, c.classroom, c.schedule, c.category,
+             t.name AS teacher_name, t.title AS teacher_title
       ${fromSql}
       ORDER BY c.semester DESC, c.college ASC, c.code ASC
       LIMIT ? OFFSET ?
@@ -230,8 +256,10 @@ app.get('/api/courses/:id', requireAuth, (req, res) => {
   try {
     const { id } = req.params;
     if (!validId(id)) return badRequest(res, 'id 参数格式错误');
-    const row = db.prepare(`
-      SELECT c.*, t.name AS teacher_name, t.title AS teacher_title, t.college AS teacher_college
+    const row = dbRead.prepare(`
+      SELECT c.id, c.code, c.name, c.credit, c.hours, c.semester, c.college, c.department,
+             c.teacher_id, c.student_count, c.classroom, c.schedule, c.category,
+             t.name AS teacher_name, t.title AS teacher_title, t.college AS teacher_college
       FROM courses c JOIN teachers t ON c.teacher_id = t.id
       WHERE c.id = ?
     `).get(id);
@@ -247,7 +275,7 @@ app.get('/api/courses/:id', requireAuth, (req, res) => {
 /** 全院统计仅主任/督导可见 */
 app.get('/api/stats', requireAuth, requireRole('director', 'supervisor'), (req, res) => {
   try {
-    const row = db.prepare(`
+    const row = dbRead.prepare(`
       SELECT
         (SELECT COUNT(*) FROM courses) AS courseCount,
         (SELECT COUNT(*) FROM teachers) AS teacherCount,
@@ -259,14 +287,14 @@ app.get('/api/stats', requireAuth, requireRole('director', 'supervisor'), (req, 
   } catch (err) { serverError(res, err); }
 });
 
-/** 筛选项（进程内缓存），所有登录角色可用 */
+/** 筛选项（进程内缓存），所有登录角色可用；写资源接口后自动失效 */
 app.get('/api/filter-options', requireAuth, (req, res) => {
   try {
     if (filterOptionsCache) return res.json({ code: 0, data: filterOptionsCache });
-    const semesters = db.prepare('SELECT DISTINCT semester FROM courses ORDER BY semester DESC').all().map(r => r.semester);
-    const colleges = db.prepare('SELECT DISTINCT college FROM courses ORDER BY college').all().map(r => r.college);
-    const departments = db.prepare('SELECT DISTINCT department FROM courses ORDER BY department').all().map(r => r.department);
-    const categories = db.prepare('SELECT DISTINCT category FROM courses').all().map(r => r.category);
+    const semesters = dbRead.prepare('SELECT DISTINCT semester FROM courses ORDER BY semester DESC').all().map(r => r.semester);
+    const colleges = dbRead.prepare('SELECT DISTINCT college FROM courses ORDER BY college').all().map(r => r.college);
+    const departments = dbRead.prepare('SELECT DISTINCT department FROM courses ORDER BY department').all().map(r => r.department);
+    const categories = dbRead.prepare('SELECT DISTINCT category FROM courses').all().map(r => r.category);
     filterOptionsCache = { semesters, colleges, departments, categories };
     res.json({ code: 0, data: filterOptionsCache });
   } catch (err) { serverError(res, err); }
@@ -275,7 +303,7 @@ app.get('/api/filter-options', requireAuth, (req, res) => {
 /* ---------------- 教学资源（Sprint2） ---------------- */
 
 /**
- * 查询某课程的教学资源列表。
+ * 查询某课程的教学资源列表（只读句柄 dbRead）。
  * 权限：教师仅能查看本人授课课程的资源；主任/督导可查看任意课程（只读）。
  */
 app.get('/api/courses/:courseId/resources', requireAuth, (req, res) => {
@@ -286,13 +314,16 @@ app.get('/api/courses/:courseId/resources', requireAuth, (req, res) => {
     if (!course) return notFound(res, '课程不存在');
     if (req.auth.role === 'teacher' && req.auth.teacherId !== course.teacher_id) return forbidden(res);
 
-    const rows = db.prepare('SELECT * FROM resources WHERE course_id = ? ORDER BY created_at DESC, id ASC').all(courseId);
+    const rows = dbRead.prepare(`
+      SELECT id, course_id, name, type, url, description, created_at
+      FROM resources WHERE course_id = ? ORDER BY created_at DESC, id ASC
+    `).all(courseId);
     res.json({ code: 0, data: rows.map(rowToResource) });
   } catch (err) { serverError(res, err); }
 });
 
 /**
- * 新增教学资源。
+ * 新增教学资源（可写句柄 dbWrite）。
  * 权限：仅教师，且课程必须为本人授课；主任/督导（含督导）无写权限，返回 403。
  */
 app.post('/api/courses/:courseId/resources', requireAuth, requireRole('teacher'), (req, res) => {
@@ -307,48 +338,54 @@ app.post('/api/courses/:courseId/resources', requireAuth, requireRole('teacher')
     if (error) return badRequest(res, error);
 
     const id = 'R-' + crypto.randomBytes(6).toString('hex').toUpperCase();
-    db.prepare(`
+    dbWrite.prepare(`
       INSERT INTO resources (id, course_id, name, type, url, description)
       VALUES (?, ?, ?, ?, ?, ?)
     `).run(id, courseId, value.name, value.type, value.url, value.description);
 
-    const row = db.prepare('SELECT * FROM resources WHERE id = ?').get(id);
+    const row = dbRead.prepare(`
+      SELECT id, course_id, name, type, url, description, created_at FROM resources WHERE id = ?
+    `).get(id);
+    invalidateFilterCache();
     res.status(201).json({ code: 0, data: rowToResource(row), message: '资源添加成功' });
   } catch (err) { serverError(res, err); }
 });
 
-/** 修改教学资源：仅课程所属教师本人 */
+/** 修改教学资源：仅课程所属教师本人（可写句柄 dbWrite） */
 app.put('/api/resources/:id', requireAuth, requireRole('teacher'), (req, res) => {
   try {
     const { id } = req.params;
     if (!validId(id)) return badRequest(res, 'id 参数格式错误');
-    const row = db.prepare('SELECT * FROM resources WHERE id = ?').get(id);
+    const row = dbRead.prepare('SELECT id, course_id FROM resources WHERE id = ?').get(id);
     if (!row) return notFound(res, '资源不存在');
-    // 资源归属教师需通过其所属课程校验
     const course = getCourseRow(row.course_id);
     if (!course || req.auth.teacherId !== course.teacher_id) return forbidden(res);
 
     const { value, error } = validateResourceBody(req.body);
     if (error) return badRequest(res, error);
 
-    db.prepare('UPDATE resources SET name = ?, type = ?, url = ?, description = ? WHERE id = ?')
+    dbWrite.prepare('UPDATE resources SET name = ?, type = ?, url = ?, description = ? WHERE id = ?')
       .run(value.name, value.type, value.url, value.description, id);
-    const updated = db.prepare('SELECT * FROM resources WHERE id = ?').get(id);
+    const updated = dbRead.prepare(`
+      SELECT id, course_id, name, type, url, description, created_at FROM resources WHERE id = ?
+    `).get(id);
+    invalidateFilterCache();
     res.json({ code: 0, data: rowToResource(updated), message: '资源更新成功' });
   } catch (err) { serverError(res, err); }
 });
 
-/** 删除教学资源：仅课程所属教师本人 */
+/** 删除教学资源：仅课程所属教师本人（可写句柄 dbWrite，外键约束已开启） */
 app.delete('/api/resources/:id', requireAuth, requireRole('teacher'), (req, res) => {
   try {
     const { id } = req.params;
     if (!validId(id)) return badRequest(res, 'id 参数格式错误');
-    const row = db.prepare('SELECT * FROM resources WHERE id = ?').get(id);
+    const row = dbRead.prepare('SELECT id, course_id FROM resources WHERE id = ?').get(id);
     if (!row) return notFound(res, '资源不存在');
     const course = getCourseRow(row.course_id);
     if (!course || req.auth.teacherId !== course.teacher_id) return forbidden(res);
 
-    db.prepare('DELETE FROM resources WHERE id = ?').run(id);
+    dbWrite.prepare('DELETE FROM resources WHERE id = ?').run(id);
+    invalidateFilterCache();
     res.json({ code: 0, data: { id }, message: '资源已删除' });
   } catch (err) { serverError(res, err); }
 });
@@ -357,8 +394,11 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-app.listen(PORT, () => {
-  console.log(`爱教学服务已启动: http://localhost:${PORT}`);
-});
+// 仅直接执行时启动服务，被测试 require 时不启动（避免端口冲突）
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`爱教学服务已启动: http://localhost:${PORT}`);
+  });
+}
 
 module.exports = app;

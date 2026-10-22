@@ -57,21 +57,21 @@ function renderFilters() {
       <label>学期：</label>
       <select id="filterSemester">
         <option value="">全部学期</option>
-        ${filterOptions.semesters.map(s => `<option value="${s}">${s}</option>`).join('')}
+        ${filterOptions.semesters.map(s => `<option value="${escapeHtml(s)}">${escapeHtml(s)}</option>`).join('')}
       </select>
     </div>
     <div class="filter-item">
       <label>学院：</label>
       <select id="filterCollege">
         <option value="">全部学院</option>
-        ${filterOptions.colleges.map(c => `<option value="${c}">${c}</option>`).join('')}
+        ${filterOptions.colleges.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('')}
       </select>
     </div>
     <div class="filter-item">
       <label>类别：</label>
       <select id="filterCategory">
         <option value="">全部类别</option>
-        ${filterOptions.categories.map(c => `<option value="${c}">${c}</option>`).join('')}
+        ${filterOptions.categories.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('')}
       </select>
     </div>
     <div class="filter-item">
@@ -150,7 +150,7 @@ function renderTeacherStats(stats) {
   document.getElementById('statsRow').innerHTML = cards.map(c => `
     <div class="stat-card">
       <div class="stat-label">${c.label}</div>
-      <div class="stat-value">${c.value ?? 0}</div>
+      <div class="stat-value">${escapeHtml(c.value ?? 0)}</div>
     </div>
   `).join('');
 }
@@ -166,17 +166,17 @@ function renderTeacherTable(list) {
   }
   tableBody.innerHTML = list.map(c => `
     <tr>
-      <td>${c.code}</td>
-      <td>${c.name}</td>
-      <td>${c.credit}</td>
-      <td>${c.hours}</td>
-      <td><span class="tag tag-semester">${c.semester}</span></td>
-      <td>${c.college}</td>
-      <td>${c.studentCount}</td>
-      <td>${c.schedule}</td>
-      <td>${c.classroom}</td>
-      <td><span class="tag ${c.category === '必修' ? 'tag-required' : 'tag-elective'}">${c.category}</span></td>
-      <td><button class="view-btn" data-id="${c.id}">详情</button></td>
+      <td>${escapeHtml(c.code)}</td>
+      <td>${escapeHtml(c.name)}</td>
+      <td>${escapeHtml(c.credit)}</td>
+      <td>${escapeHtml(c.hours)}</td>
+      <td><span class="tag tag-semester">${escapeHtml(c.semester)}</span></td>
+      <td>${escapeHtml(c.college)}</td>
+      <td>${escapeHtml(c.studentCount)}</td>
+      <td>${escapeHtml(c.schedule)}</td>
+      <td>${escapeHtml(c.classroom)}</td>
+      <td><span class="tag ${c.category === '必修' ? 'tag-required' : 'tag-elective'}">${escapeHtml(c.category)}</span></td>
+      <td><button class="view-btn" data-id="${escapeHtml(c.id)}">详情</button></td>
     </tr>
   `).join('');
 }

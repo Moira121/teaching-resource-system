@@ -13,6 +13,7 @@ const sharedFrontendGlobals = {
   API: 'readonly',
   rawRequest: 'readonly',
   safeAlert: 'readonly',
+  escapeHtml: 'readonly',
   getAuth: 'readonly',
   setAuth: 'readonly',
   clearAuth: 'readonly',
