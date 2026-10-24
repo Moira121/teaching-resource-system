@@ -219,9 +219,9 @@ async function handleExportEvaluations() {
 
 async function loadResourceStats() {
   try {
-    const res = await API.getCourseResourceStats();
-    document.getElementById('resStatCount').textContent = `共 ${res.data.length} 门课程`;
-    renderResourceStats(res.data);
+    const list = await API.getCourseResourceStats();
+    document.getElementById('resStatCount').textContent = `共 ${list.length} 门课程`;
+    renderResourceStats(list);
   } catch (e) {
     safeAlert('加载资源统计失败：' + e.message);
   }

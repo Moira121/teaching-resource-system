@@ -186,8 +186,7 @@ function renderTeacherTable(list) {
 
 async function loadEvaluationStats() {
   try {
-    const res = await API.getTeacherEvaluationStats(teacherInfo.id);
-    const { overall, byCourse } = res.data;
+    const { overall, byCourse } = await API.getTeacherEvaluationStats(teacherInfo.id);
     renderEvalStatsOverview(overall, byCourse);
     renderEvalStatTable(byCourse);
   } catch (e) {
