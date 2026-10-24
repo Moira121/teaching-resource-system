@@ -300,7 +300,7 @@ body {
   justify-content: center;
   background:
     linear-gradient(135deg, rgba(102, 126, 234, 0.55) 0%, rgba(118, 75, 162, 0.55) 100%),
-    url('/images/login-bg.png') center/cover no-repeat;
+    url('/images/login-bg.png?v=2') center/cover no-repeat;
   padding: 20px;
 }
 
