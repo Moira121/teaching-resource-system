@@ -6,7 +6,7 @@
 const path = require('path');
 const fs = require('fs');
 const Database = require('better-sqlite3');
-const { teachers, courses, resources } = require('./seed-data');
+const { teachers, courses, resources, evaluations } = require('./seed-data');
 
 /** 清理主库及可能残留的 WAL/SHM 文件 */
 function removeDbFiles(dbPath) {
@@ -67,12 +67,28 @@ function initDatabase(dbPath) {
       FOREIGN KEY (course_id) REFERENCES courses(id)
     );
 
+    CREATE TABLE evaluations (
+      id TEXT PRIMARY KEY,
+      course_id TEXT NOT NULL,
+      teacher_id TEXT NOT NULL,
+      semester TEXT NOT NULL,
+      evaluator_role TEXT NOT NULL,
+      score REAL NOT NULL CHECK (score >= 0 AND score <= 100),
+      comment TEXT NOT NULL DEFAULT '',
+      evaluated_at TEXT NOT NULL,
+      FOREIGN KEY (course_id) REFERENCES courses(id),
+      FOREIGN KEY (teacher_id) REFERENCES teachers(id)
+    );
+
     CREATE INDEX idx_courses_teacher ON courses(teacher_id);
     CREATE INDEX idx_courses_semester ON courses(semester);
     CREATE INDEX idx_courses_college ON courses(college);
     CREATE INDEX idx_courses_department ON courses(department);
     CREATE INDEX idx_courses_category ON courses(category);
     CREATE INDEX idx_resources_course ON resources(course_id);
+    CREATE INDEX idx_evaluations_course ON evaluations(course_id);
+    CREATE INDEX idx_evaluations_teacher ON evaluations(teacher_id);
+    CREATE INDEX idx_evaluations_semester ON evaluations(semester);
   `);
 
   const insertTeacher = db.prepare(`
@@ -89,11 +105,16 @@ function initDatabase(dbPath) {
     INSERT INTO resources (id, course_id, name, type, url, description)
     VALUES (@id, @courseId, @name, @type, @url, @description)
   `);
+  const insertEvaluation = db.prepare(`
+    INSERT INTO evaluations (id, course_id, teacher_id, semester, evaluator_role, score, comment, evaluated_at)
+    VALUES (@id, @courseId, @teacherId, @semester, @evaluatorRole, @score, @comment, @evaluatedAt)
+  `);
 
   const insertAll = db.transaction(() => {
     for (const t of teachers) insertTeacher.run(t);
     for (const c of courses) insertCourse.run(c);
     for (const r of resources) insertResource.run(r);
+    for (const e of evaluations) insertEvaluation.run(e);
   });
   insertAll();
 

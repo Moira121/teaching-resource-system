@@ -27,13 +27,21 @@ async function init() {
   }
   renderFilters();
   await loadData();
+  renderEvalFilters();
+  await loadEvaluations();
 
   document.getElementById('searchBtn').addEventListener('click', () => { currentPage = 1; loadData(); });
   document.getElementById('resetBtn').addEventListener('click', resetFilters);
   document.getElementById('filterKeyword').addEventListener('keypress', e => {
     if (e.key === 'Enter') { currentPage = 1; loadData(); }
   });
-  document.getElementById('filterTeacher').addEventListener('change', () => { currentPage = 1; loadData(); });
+  document.getElementById('filterTeacher').addEventListener('change', () => {
+    currentPage = 1;
+    loadData();
+    loadEvaluations();
+  });
+  document.getElementById('evalFilterSemester').addEventListener('change', loadEvaluations);
+  document.getElementById('evalFilterRole').addEventListener('change', loadEvaluations);
 }
 
 function renderFilters() {
@@ -188,6 +196,75 @@ function renderSupervisorTable(list) {
       <td>${escapeHtml(c.classroom)}</td>
       <td><span class="tag ${c.category === '必修' ? 'tag-required' : 'tag-elective'}">${escapeHtml(c.category)}</span></td>
       <td><button class="view-btn" data-id="${escapeHtml(c.id)}">详情</button></td>
+    </tr>
+  `).join('');
+}
+
+// ---- Sprint3：课程历史教学评价记录 ----
+
+let evalLoadToken = 0;
+
+function renderEvalFilters() {
+  const row = document.getElementById('evalFilterRow');
+  row.innerHTML = `
+    <div class="filter-item">
+      <label>学期：</label>
+      <select id="evalFilterSemester">
+        <option value="">全部学期</option>
+        ${filterOptions.semesters.map(s => `<option value="${escapeHtml(s)}">${escapeHtml(s)}</option>`).join('')}
+      </select>
+    </div>
+    <div class="filter-item">
+      <label>评价来源：</label>
+      <select id="evalFilterRole">
+        <option value="">全部来源</option>
+        <option value="学生">学生</option>
+        <option value="督导">督导</option>
+        <option value="同行">同行</option>
+      </select>
+    </div>
+    <span class="user-sub">评价记录随上方"授课教师"筛选联动</span>
+  `;
+}
+
+async function loadEvaluations() {
+  const myToken = ++evalLoadToken;
+  const params = {
+    semester: document.getElementById('evalFilterSemester').value,
+    evaluatorRole: document.getElementById('evalFilterRole').value
+  };
+  const teacherEl = document.getElementById('filterTeacher');
+  if (teacherEl && teacherEl.value) params.teacherId = teacherEl.value;
+
+  try {
+    const res = await API.getEvaluations(params);
+    if (myToken !== evalLoadToken) return;
+    document.getElementById('evalCount').textContent = `共 ${res.total} 条评价`;
+    renderEvaluationTable(res.data);
+  } catch (e) {
+    if (myToken !== evalLoadToken) return;
+    safeAlert('加载评价记录失败：' + e.message);
+  }
+}
+
+function renderEvaluationTable(list) {
+  const tbody = document.getElementById('evalTableBody');
+  if (!list || list.length === 0) {
+    tbody.innerHTML = `
+      <tr><td colspan="7">
+        <div class="empty-state"><div class="empty-icon">📝</div><div class="empty-text">暂无评价记录</div></div>
+      </td></tr>`;
+    return;
+  }
+  tbody.innerHTML = list.map(ev => `
+    <tr>
+      <td><span class="tag tag-semester">${escapeHtml(ev.semester)}</span></td>
+      <td>${escapeHtml(ev.courseCode)} ${escapeHtml(ev.courseName)}</td>
+      <td><strong>${escapeHtml(ev.teacher)}</strong></td>
+      <td>${escapeHtml(ev.evaluatorRole)}</td>
+      <td><strong>${escapeHtml(ev.score)}</strong></td>
+      <td>${escapeHtml(ev.comment || '-')}</td>
+      <td>${escapeHtml(ev.evaluatedAt)}</td>
     </tr>
   `).join('');
 }

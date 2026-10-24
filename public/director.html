@@ -44,6 +44,29 @@
 
     <div id="pagination" class="pagination"></div>
 
+    <div class="table-card" style="margin-top:20px;">
+      <div class="table-toolbar">
+        <span class="toolbar-title">📤 课程评价汇总简表导出</span>
+        <button class="btn btn-primary" id="exportEvalBtn">导出 CSV</button>
+      </div>
+      <div class="filter-bar" style="padding:12px 16px;">
+        <div class="filter-row" id="exportFilterRow"></div>
+      </div>
+    </div>
+
+    <div class="table-card" style="margin-top:20px;">
+      <div class="table-toolbar">
+        <span class="toolbar-title">📦 各课程教学资源数量统计</span>
+        <span class="result-count" id="resStatCount">共 0 门课程</span>
+      </div>
+      <table class="course-table">
+        <thead>
+          <tr><th>课程代码</th><th>课程名称</th><th>授课教师</th><th>学期</th><th>学院</th><th>资源数量</th></tr>
+        </thead>
+        <tbody id="resStatBody"></tbody>
+      </table>
+    </div>
+
     <div class="footer-info">教研室主任视角 · 统筹管理全院课程开设与排课安排</div>
   </div>
 

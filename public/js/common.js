@@ -144,6 +144,38 @@ const API = {
   },
   async deleteResource(id) {
     return rawRequest(`/api/resources/${id}`, { method: 'DELETE' });
+  },
+  // ---- 教学评价（Sprint3）----
+  async getEvaluations(params = {}) {
+    const qs = new URLSearchParams(params).toString();
+    return rawRequest(qs ? `/api/evaluations?${qs}` : '/api/evaluations');
+  },
+  async getTeacherEvaluationStats(teacherId) {
+    return (await rawRequest(`/api/teachers/${teacherId}/evaluation-stats`)).data;
+  },
+  async getCourseResourceStats() {
+    return (await rawRequest('/api/stats/course-resources')).data;
+  },
+  /** 主任导出评价汇总 CSV：携带鉴权头拉取 blob 并触发浏览器下载 */
+  async exportEvaluationsCsv(params = {}) {
+    const auth = getAuth();
+    const qs = new URLSearchParams(params).toString();
+    const url = qs ? `/api/evaluations/export?${qs}` : '/api/evaluations/export';
+    const res = await fetch(url, { headers: auth && auth.token ? { Authorization: `Bearer ${auth.token}` } : {} });
+    if (res.status === 401) { redirectToLogin(); throw new Error('未登录或登录已过期'); }
+    if (!res.ok) {
+      let msg = `导出失败(${res.status})`;
+      try { const j = await res.json(); if (j && j.message) msg = j.message; } catch (_) { /* 非 JSON 响应 */ }
+      throw new Error(msg);
+    }
+    const blob = await res.blob();
+    const disposition = res.headers.get('Content-Disposition') || '';
+    const m = disposition.match(/filename="([^"]+)"/);
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = m ? m[1] : 'evaluation-summary.csv';
+    a.click();
+    URL.revokeObjectURL(a.href);
   }
 };
 
