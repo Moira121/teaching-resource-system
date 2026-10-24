@@ -8,7 +8,7 @@
     "start": "node server.js",
     "dev": "node server.js",
     "lint": "eslint .",
-    "test": "node --test --test-concurrency=1 tests/auth.test.js tests/courses.test.js tests/resources.test.js"
+    "test": "node --test --test-concurrency=1 tests/auth.test.js tests/courses.test.js tests/resources.test.js tests/evaluations.test.js"
   },
   "keywords": [],
   "author": "",

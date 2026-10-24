@@ -12,7 +12,7 @@ name: CI
 
 on:
   push:
-    branches: [main, feature/sprint2-resources]
+    branches: [main, 'feature/**']
   pull_request:
     branches: [main]
   workflow_dispatch:
@@ -74,5 +74,5 @@ jobs:
       - name: Init database smoke check
         run: npm run init-db
 
-      - name: Run tests (serial, 51 cases)
+      - name: Run tests (serial, 69 cases)
         run: npm test

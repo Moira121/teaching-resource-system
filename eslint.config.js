@@ -4,7 +4,7 @@ const js = require('@eslint/js');
 const browserGlobals = {
   window: 'readonly', document: 'readonly', location: 'readonly',
   sessionStorage: 'readonly', fetch: 'readonly', alert: 'readonly',
-  confirm: 'readonly', URLSearchParams: 'readonly', console: 'readonly',
+  confirm: 'readonly', URLSearchParams: 'readonly', URL: 'readonly', console: 'readonly',
   setTimeout: 'readonly', clearTimeout: 'readonly'
 };
 

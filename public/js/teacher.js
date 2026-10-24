@@ -42,6 +42,7 @@ async function init() {
   }
   renderFilters();
   await loadData();
+  await loadEvaluationStats();
 
   document.getElementById('searchBtn').addEventListener('click', () => { currentPage = 1; loadData(); });
   document.getElementById('resetBtn').addEventListener('click', resetFilters);
@@ -177,6 +178,57 @@ function renderTeacherTable(list) {
       <td>${escapeHtml(c.classroom)}</td>
       <td><span class="tag ${c.category === '必修' ? 'tag-required' : 'tag-elective'}">${escapeHtml(c.category)}</span></td>
       <td><button class="view-btn" data-id="${escapeHtml(c.id)}">详情</button></td>
+    </tr>
+  `).join('');
+}
+
+// ---- Sprint3：我的课程评价统计 ----
+
+async function loadEvaluationStats() {
+  try {
+    const { overall, byCourse } = await API.getTeacherEvaluationStats(teacherInfo.id);
+    renderEvalStatsOverview(overall, byCourse);
+    renderEvalStatTable(byCourse);
+  } catch (e) {
+    safeAlert('加载评价统计失败：' + e.message);
+  }
+}
+
+function renderEvalStatsOverview(overall, byCourse) {
+  document.getElementById('evalStatCount').textContent = `共 ${overall.evalCount} 条评价`;
+  const cards = [
+    { label: '评价总条数', value: overall.evalCount },
+    { label: '总均分', value: overall.avgScore ?? '-' },
+    { label: '被评价课程数', value: byCourse.length }
+  ];
+  document.getElementById('evalStatsRow').innerHTML = cards.map(c => `
+    <div class="stat-card">
+      <div class="stat-label">${c.label}</div>
+      <div class="stat-value">${escapeHtml(c.value ?? 0)}</div>
+    </div>
+  `).join('');
+}
+
+function renderEvalStatTable(list) {
+  const tbody = document.getElementById('evalStatBody');
+  if (!list || list.length === 0) {
+    tbody.innerHTML = `
+      <tr><td colspan="8">
+        <div class="empty-state"><div class="empty-icon">⭐</div><div class="empty-text">暂无评价数据</div></div>
+      </td></tr>`;
+    return;
+  }
+  const fmt = v => (v === null || v === undefined) ? '-' : v;
+  tbody.innerHTML = list.map(c => `
+    <tr>
+      <td>${escapeHtml(c.code)}</td>
+      <td>${escapeHtml(c.name)}</td>
+      <td><span class="tag tag-semester">${escapeHtml(c.semester)}</span></td>
+      <td>${escapeHtml(c.evalCount)}</td>
+      <td><strong>${escapeHtml(fmt(c.avgScore))}</strong></td>
+      <td>${escapeHtml(fmt(c.studentAvg))}</td>
+      <td>${escapeHtml(fmt(c.supervisorAvg))}</td>
+      <td>${escapeHtml(fmt(c.peerAvg))}</td>
     </tr>
   `).join('');
 }

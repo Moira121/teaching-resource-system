@@ -21,12 +21,15 @@ async function init() {
   }
   renderFilters();
   await loadData();
+  renderExportFilters();
+  await loadResourceStats();
 
   document.getElementById('searchBtn').addEventListener('click', () => { currentPage = 1; loadData(); });
   document.getElementById('resetBtn').addEventListener('click', resetFilters);
   document.getElementById('filterKeyword').addEventListener('keypress', e => {
     if (e.key === 'Enter') { currentPage = 1; loadData(); }
   });
+  document.getElementById('exportEvalBtn').addEventListener('click', handleExportEvaluations);
 }
 
 function renderFilters() {
@@ -171,6 +174,76 @@ function renderDirectorTable(list) {
       <td>${escapeHtml(c.studentCount)}</td>
       <td><span class="tag ${c.category === '必修' ? 'tag-required' : 'tag-elective'}">${escapeHtml(c.category)}</span></td>
       <td><button class="view-btn" data-id="${escapeHtml(c.id)}">详情</button></td>
+    </tr>
+  `).join('');
+}
+
+// ---- Sprint3：评价汇总导出 + 资源数量统计 ----
+
+function renderExportFilters() {
+  const row = document.getElementById('exportFilterRow');
+  row.innerHTML = `
+    <div class="filter-item">
+      <label>学期：</label>
+      <select id="exportSemester">
+        <option value="">全部学期</option>
+        ${filterOptions.semesters.map(s => `<option value="${escapeHtml(s)}">${escapeHtml(s)}</option>`).join('')}
+      </select>
+    </div>
+    <div class="filter-item">
+      <label>学院：</label>
+      <select id="exportCollege">
+        <option value="">全部学院</option>
+        ${filterOptions.colleges.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join('')}
+      </select>
+    </div>
+    <span class="user-sub">导出内容：每门课程的评价条数与各来源均分</span>
+  `;
+}
+
+async function handleExportEvaluations() {
+  const btn = document.getElementById('exportEvalBtn');
+  const params = {
+    semester: document.getElementById('exportSemester').value,
+    college: document.getElementById('exportCollege').value
+  };
+  btn.disabled = true;
+  try {
+    await API.exportEvaluationsCsv(params);
+  } catch (e) {
+    safeAlert(e.message || '导出失败');
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+async function loadResourceStats() {
+  try {
+    const list = await API.getCourseResourceStats();
+    document.getElementById('resStatCount').textContent = `共 ${list.length} 门课程`;
+    renderResourceStats(list);
+  } catch (e) {
+    safeAlert('加载资源统计失败：' + e.message);
+  }
+}
+
+function renderResourceStats(list) {
+  const tbody = document.getElementById('resStatBody');
+  if (!list || list.length === 0) {
+    tbody.innerHTML = `
+      <tr><td colspan="6">
+        <div class="empty-state"><div class="empty-icon">📦</div><div class="empty-text">暂无课程数据</div></div>
+      </td></tr>`;
+    return;
+  }
+  tbody.innerHTML = list.map(c => `
+    <tr>
+      <td>${escapeHtml(c.code)}</td>
+      <td>${escapeHtml(c.name)}</td>
+      <td>${escapeHtml(c.teacher)}</td>
+      <td><span class="tag tag-semester">${escapeHtml(c.semester)}</span></td>
+      <td>${escapeHtml(c.college)}</td>
+      <td><strong>${escapeHtml(c.resourceCount)}</strong></td>
     </tr>
   `).join('');
 }
