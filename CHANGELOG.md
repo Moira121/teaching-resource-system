@@ -6,6 +6,15 @@
 
 ---
 
+## [v3.0.2] - 2026-10-27
+
+### 修复（Fixed）
+
+- CHANGELOG 历史版本日期：v1.0.0 / v2.0.0 / v3.0.0 的版本日期从 2025 年修正为 2026 年
+- server.js 文件头注释日期同步修正
+
+---
+
 ## [v3.0.1] - 2026-10-27
 
 ### 新增（Added）
@@ -141,13 +150,15 @@
 | v1.0.0 | `v1.0.0` | `31ed484` | `main` |
 | v2.0.0 | `v2.0.0` | `b47432f` | `feature/sprint2-resources` |
 | v3.0.0 | `v3.0.0` | `47eeeb0` | `main`（合并自 `feature/sprint3-evaluations`） |
-| v3.0.1 | `v3.0.1` | `92d62a3` | `main`（合并自 `feature/e2e-and-releases`） |
+| v3.0.1 | `v3.0.1` | `c83f4ae` | `main`（合并自 `feature/e2e-and-releases` + CHANGELOG v3.0.1 条目） |
+| v3.0.2 | `v3.0.2` | `9bfdacc` | `main`（日期修正 + v3.0.2 条目） |
 
 所有版本均通过 CI 流水线（Lint ✅ + 69 条 API 测试 ✅ + 14 条 E2E ✅）。
 
 ---
 
-[Unreleased]: https://github.com/Moira121/teaching-resource-system/compare/v3.0.1...HEAD
+[Unreleased]: https://github.com/Moira121/teaching-resource-system/compare/v3.0.2...HEAD
+[v3.0.2]: https://github.com/Moira121/teaching-resource-system/compare/v3.0.1...v3.0.2
 [v3.0.1]: https://github.com/Moira121/teaching-resource-system/compare/v3.0.0...v3.0.1
 [v3.0.0]: https://github.com/Moira121/teaching-resource-system/compare/v2.0.0...v3.0.0
 [v2.0.0]: https://github.com/Moira121/teaching-resource-system/compare/v1.0.0...v2.0.0
