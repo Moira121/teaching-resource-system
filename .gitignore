@@ -18,3 +18,8 @@ npm-debug.log*
 Thumbs.db
 .vscode/
 .idea/
+
+# Playwright 产物（E2E 测试报告、截图、临时状态）
+test-results/
+playwright-report/
+.playwright/

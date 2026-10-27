@@ -100,7 +100,7 @@ async function startTestServer() {
     } catch (_) { /* Windows 偶发句柄延迟，忽略 */ }
   }
 
-  return { base, stop, login, request };
+  return { base, stop, login, request, proc, tempDir: dir, dbPath };
 }
 
 module.exports = { startTestServer };
