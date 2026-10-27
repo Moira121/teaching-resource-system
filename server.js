@@ -2,7 +2,7 @@
  * 爱教学平台服务端
  * Sprint1：课程信息查询（分页/搜索转义/合并统计/只读查询）
  * Sprint2：三角色后端鉴权 + 教学资源模块（教师可管理本人课程资源）
- * 2025-10-22: 双 DB 句柄（只读 / 可写）+ 外键开启 + SELECT * 消除 + keyword SQL 修复 + 导入启动隔离
+ * 2026-10-22: 双 DB 句柄（只读 / 可写）+ 外键开启 + SELECT * 消除 + keyword SQL 修复 + 导入启动隔离
  */
 const express = require('express');
 const path = require('path');
