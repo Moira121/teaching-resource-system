@@ -1,7 +1,7 @@
 {
   "name": "aijiaoxue",
-  "version": "2.0.0",
-  "description": "爱教学平台 Sprint2：课程查询 + 三角色鉴权 + 教学资源模块",
+  "version": "3.0.0",
+  "description": "爱教学平台 Sprint3 发布就绪：课程查询 + 三角色鉴权 + 教学资源 + 教学评价管理",
   "main": "server.js",
   "scripts": {
     "init-db": "node scripts/init-db.js",
