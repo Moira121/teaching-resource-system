@@ -1,14 +1,16 @@
 {
   "name": "aijiaoxue",
-  "version": "2.0.0",
-  "description": "爱教学平台 Sprint2：课程查询 + 三角色鉴权 + 教学资源模块",
+  "version": "3.0.0",
+  "description": "爱教学平台 Sprint3 发布就绪：课程查询 + 三角色鉴权 + 教学资源 + 教学评价管理",
   "main": "server.js",
   "scripts": {
     "init-db": "node scripts/init-db.js",
     "start": "node server.js",
     "dev": "node server.js",
     "lint": "eslint .",
-    "test": "node --test --test-concurrency=1 tests/auth.test.js tests/courses.test.js tests/resources.test.js tests/evaluations.test.js"
+    "test": "node --test --test-concurrency=1 tests/auth.test.js tests/courses.test.js tests/resources.test.js tests/evaluations.test.js",
+    "test:e2e": "playwright test",
+    "test:all": "npm test && npm run test:e2e"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +22,7 @@
     "express": "5.2.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.52.0",
     "eslint": "^9.39.4"
   }
 }

@@ -32,7 +32,7 @@ module.exports = [
   },
   {
     // Node 侧：服务端 / 脚本 / 测试 / 配置
-    files: ['server.js', 'lib/**/*.js', 'scripts/**/*.js', 'tests/**/*.js', 'eslint.config.js'],
+    files: ['server.js', 'lib/**/*.js', 'scripts/**/*.js', 'tests/**/*.js', 'eslint.config.js', 'playwright.config.js'],
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: 'commonjs',
