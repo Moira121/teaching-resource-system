@@ -6,6 +6,37 @@
 
 ---
 
+## [v3.0.1] - 2026-10-27
+
+### 新增（Added）
+
+- **Playwright E2E 浏览器级测试**（14 条 Chromium UI 用例），覆盖三角色登录流程、教师资源 CRUD 闭环、只读权限呈现
+- CI 流水线新增 `e2e` Job：Ubuntu / Node 24，自动安装 Chromium + 依赖后运行
+- 用户使用手册 `docs/user-guide.md`：三角色操作指南 + 问题排查
+- Release Notes 补全：`CHANGELOG.md` 三版本完整变更记录（Keep a Changelog 格式）
+- README 运行指南完善：技术栈、运行命令、权限矩阵、目录结构、CI 配置、分支与发布
+
+### 修复（Fixed）
+
+- `package.json` 版本号从 2.0.0 修正为 3.0.0，描述更新为 Sprint3 发布就绪
+
+### 测试（Tests）
+
+- 全量回归：**69 条 API 测试 + 14 条 E2E 测试，全部通过**
+- CI 全矩阵：Lint ✅ + Test（Ubuntu/Windows × Node 22/24）✅ + E2E ✅
+
+### 基础设施（Infrastructure）
+
+- `feature/e2e-and-releases` 分支合并回 `main`（`92d62a3`），发布就绪 HEAD 包含全部三个 Sprint 的功能代码、测试、文档
+- `.gitignore` 补充 Playwright 产物（`test-results/`、`playwright-report/`、`.playwright/`）
+
+### 构建
+
+- 累计三个 Sprint，达到发布就绪状态：
+  - Sprint1（v1.0.0）：课程查询核心 → Sprint2（v2.0.0）：鉴权 + 资源 → Sprint3（v3.0.0）：评价管理 → v3.0.1：测试 + 文档 + CI 全绿
+
+---
+
 ## [v3.0.0] - 2025-10-25
 
 ### 新增（Added）
@@ -110,12 +141,14 @@
 | v1.0.0 | `v1.0.0` | `31ed484` | `main` |
 | v2.0.0 | `v2.0.0` | `b47432f` | `feature/sprint2-resources` |
 | v3.0.0 | `v3.0.0` | `47eeeb0` | `main`（合并自 `feature/sprint3-evaluations`） |
+| v3.0.1 | `v3.0.1` | `92d62a3` | `main`（合并自 `feature/e2e-and-releases`） |
 
-所有版本均通过 CI 流水线（Lint ✅ + 69 条测试 ✅）。
+所有版本均通过 CI 流水线（Lint ✅ + 69 条 API 测试 ✅ + 14 条 E2E ✅）。
 
 ---
 
-[Unreleased]: https://github.com/Moira121/teaching-resource-system/compare/v3.0.0...HEAD
+[Unreleased]: https://github.com/Moira121/teaching-resource-system/compare/v3.0.1...HEAD
+[v3.0.1]: https://github.com/Moira121/teaching-resource-system/compare/v3.0.0...v3.0.1
 [v3.0.0]: https://github.com/Moira121/teaching-resource-system/compare/v2.0.0...v3.0.0
 [v2.0.0]: https://github.com/Moira121/teaching-resource-system/compare/v1.0.0...v2.0.0
 [v1.0.0]: https://github.com/Moira121/teaching-resource-system/releases/tag/v1.0.0
